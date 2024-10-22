@@ -1,24 +1,47 @@
+'use client'
+
 import Link from 'next/link'
+import { useAuth } from '../context/AuthContext';
+import UtiltyComponent from '../context';
+
+
 
 const Header = () => {
+  // const { logout } = useAuth();
+  // const [token, setToken] = useLocalStorage('tokenAPI', '');
+
+  // const [useDetails, setUserDetails] = useLocalStorage('userDetails', '')
+
+  const handleLogout = (e: React.FormEvent) => {
+    e.preventDefault();
+    // console.log(useDetails)
+  }
+
   return (
-    <nav className="fixed top-0 left-0 right-0 bg-white shadow-lg border-t border-gray-300">
-      <div className="flex justify-around py-2">
-        <Link href="/products" className="text-blue-500 hover:text-blue-600">
-          Home
-        </Link>
-        {/* <Link h  */}
-        <Link href="/category" className="text-blue-500 hover:text-blue-600">
-          Categories
-        </Link>
-        <Link href="/order" className="text-blue-500 hover:text-blue-600">
-          Cart
-        </Link>
-        <Link href="/profile" className="text-blue-500 hover:text-blue-600">
-          My Account
-        </Link>
+    <>
+    <UtiltyComponent />
+    <header className="bg-white shadow-lg border-t border-gray-300 p-4 flex justify-between items-center fixed w-full top-0 z-50">
+      {/* Logo */}
+      <div className="text-xl font-bold">
+        Yeton
       </div>
-    </nav>
+
+      {/* {token ? */}
+        <button onClick={handleLogout}></button>
+        {/* : */}
+        <div className="flex space-x-4">
+          <Link href="/signup" className="text-blue-500 hover:text-blue-600">
+            <button className="bg-[#90E401] text-black">
+              Join Now
+            </button>
+          </Link>
+          <Link href="/signin" className="text-blue-500 hover:text-blue-600">
+            <button className="border-[#90E401]">Login</button>
+          </Link>
+        </div>
+      {/* } */}
+    </header>
+    </>
   );
 }
 

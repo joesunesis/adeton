@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 
 export default function Signup() {
-  const { user, register } = useAuth();
+  const { data, register } = useAuth();
   const router = useRouter();
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
@@ -19,7 +19,7 @@ export default function Signup() {
       return alert('Incorrect Details!');
 
     await register(fullName, email, phone, gender, password);
-    user && router.push('/products');
+    data && router.push('/products');
   };
 
   return (

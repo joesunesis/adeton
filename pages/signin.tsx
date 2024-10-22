@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useAuth } from '../app/context/AuthContext';
 
 export default function Login() {
-  const { user, data, authenticate, loading } = useAuth();
+  const { data, authenticate, loading } = useAuth();
   const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
   const router = useRouter();
@@ -16,8 +16,10 @@ export default function Login() {
       return alert('phone and password is incorrect!');
 
     await authenticate(phone, password);
-    user && router.push('/products');
+    data && router.push('/products');
   };
+
+  if (loading) return <div>Loading ..... </div>
 
   return (
     <div className="flex items-center justify-center h-screen">

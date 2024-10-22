@@ -1,12 +1,12 @@
 import { createContext, useState, useContext, ReactNode } from 'react';
 import UseFetch from './Fetch';
+import { User } from '../types/user';
 
 interface AuthContextProps {
-  user: null;
   data: null;
   authenticate: (phone: string, password: string) => void;
   register: (name: string, email: string, phone: string, gender: string, password: string, imageUrl?: string) => void;
-  logout: () => void;
+  logout: (phone: string) => void;
   loading: boolean;
 }
 
@@ -14,7 +14,7 @@ const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 
 export default function AuthProvider({ children }: { children: ReactNode }) {
   const { data, getData, error, loading } = UseFetch();
-  const [user, authorize] = useState(null);
+  const [user, authorize] = useState<User | null>();
 
   const authenticate = async (phone: string, password: string) => {
     const loginOpts = {
@@ -23,8 +23,13 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
       headers: { 'Content-Type': 'application/json' }
     }
     await getData('login', loginOpts);
-    data ? authorize(data) : console.error("Login failed: ", error);
-    data && localStorage.setItem('userDetails', JSON.stringify(user))
+    if (!data) {
+      console.error("login failed: ", error);
+      return;
+    }
+    authorize(data?.user);
+    localStorage.setItem('tokenAPI', data?.token)
+    localStorage.setItem('userDetails', JSON.stringify(user))
   };
 
   const register = async (name: string, email: string, phone: string, gender: string, password: string, imageUrl?: string) => {
@@ -37,14 +42,24 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
     (!data) && console.error("Register failed", error); 
   }
 
-  const logout = async () => {
-    await getData('user/logout');
-    data ? authorize(null) : console.error("Logout failed: ", error);
-    data && localStorage.removeItem('userDetails')
+  const logout = async (phone: string) => {
+    const logoutOpts = {
+      method: 'post',
+      body: {phone},
+      headers: { 'Content-Type': 'application/json' }
+    }
+    await getData('user/logout', logoutOpts);
+    if (!data) {
+      console.error("logout failed: ", error);
+      return;
+    }
+    authorize(null);
+    localStorage.removeItem('userDetails')
+    localStorage.setItem('tokenAPI', data?.token)
   }
 
   return (
-    <AuthContext.Provider value={{ user, data, authenticate, register, logout, loading }}>
+    <AuthContext.Provider value={{ data, authenticate, register, logout, loading }}>
       {children}
     </AuthContext.Provider>
   );

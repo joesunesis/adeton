@@ -2,16 +2,16 @@
 import { useCallback, useState } from "react";
 
 interface UseFetch {
-  data: null;
+  data: any;
   loading: boolean;
   error: any;
   getData: (url: string, options?: object) => void;
 }
 
 export default function UseFetch() : UseFetch {
-  const [data, setData] = useState(null);
+  const [data, setData] = useState();
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<any>(null);
+  const [error, setError] = useState();
   
   const getData = useCallback(async (url: string, options?: object) => {
     setLoading(true);
@@ -22,13 +22,13 @@ export default function UseFetch() : UseFetch {
         throw new Error('Request failed with status' + res.status + ". Message: " + res.text);
       const result = await res.json();
       setData(result);
-    } catch (error) {
+    } catch (err) {
       console.error('Error: ', error);
       setError(error);
     } finally {
       setLoading(false);
     }
-  }, [data, loading, error]);
+  }, [data]);
 
   return { data, loading, error, getData }
 }
