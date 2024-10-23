@@ -13,7 +13,8 @@ interface AuthContextProps {
 const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 
 export default function AuthProvider({ children }: { children: ReactNode }) {
-  const { data, getData, error, loading } = UseFetch();
+  const { getData, error, loading } = UseFetch();
+  const [data, setData] = useState();
   const [user, authorize] = useState<User | null>();
 
   const authenticate = async (phone: string, password: string) => {
@@ -22,13 +23,15 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
       body: JSON.stringify({ phone, password }),
       headers: { 'Content-Type': 'application/json' }
     }
-    await getData('login', loginOpts);
+    const fetchData = await getData('login', loginOpts);
+    setData(fetchData);
+    
     if (!data) {
       console.error("login failed: ", error);
       return;
     }
     authorize(data?.user);
-    localStorage.setItem('tokenAPI', data?.token)
+    localStorage.setItem('tokenAPI', JSON.stringify(data?.token))
     localStorage.setItem('userDetails', JSON.stringify(user))
   };
 

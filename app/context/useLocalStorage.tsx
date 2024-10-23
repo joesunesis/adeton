@@ -1,89 +1,40 @@
-'use client'
 import { useEffect, useState } from 'react';
 
-
-export function useLocalStorage(key: string, initialValue: any) {
+export function useLocalStorage<T>(key: string, initialValue?: T) {
+  const [storedValue, setStoredValue] = useState<T>();
 
   useEffect(() => {
     const getItem = () => {
       try {
-        const item = window.localStorage.getItem(key)
-        console.log(item)
-        if (!item ) return;
-        return JSON.parse(item)
+        const item = localStorage.getItem(key);
+        console.log(item);
+        
+        setStoredValue(item ? JSON.parse(item) : initialValue);
       } catch (error) {
-        console.log('error', error);
+        console.log('Error accessing localStorage:', error);
         return initialValue;
       }
     }
-      const item  = getItem()
-      setStoredValue(item)
-  }, [key, initialValue])
+    getItem();
+  }, [key, initialValue]);
 
-  const [storedValue, setStoredValue] = useState();
-
-  const setItem = (value: any) => {
+  const setItem = (value: T) => {
     try {
-      const valueToStore = JSON.stringify(value)
-      window?.localStorage.setItem(key, valueToStore)
-      setStoredValue(value)
-      console.log("im runninig");
-      
+      localStorage.setItem(key, JSON.stringify(value));
+      setStoredValue(value);
     } catch (error) {
-      console.log("serror setting value", error);
+      console.log('Error setting localStorage:', error);
     }
-  }
+  };
 
+  const removeItem = () => {
+    try {
+      localStorage.removeItem(key);
+      setStoredValue(undefined as unknown as T);
+    } catch (error) {
+      console.log('Error removing localStorage:', error);
+    }
+  };
 
-  // const useStorage = useCallback((key: string, initialValue?: any) => {
-  //   // if (typeof window === 'undefined') {
-  //   //   return initialValue;
-  //   // }
-
-  //   try {
-  //     const item = localStorage.getItem(key);
-
-  //     if (item == undefined || item == null) {
-  //       localStorage.setItem(key, JSON.stringify(initialValue));
-  //     } else {
-  //       console.log(item);
-
-  //       return JSON.parse(item);
-  //     }
-  //   } catch (error) {
-  //     console.error('Error reading localStorage:', error);
-  //     return initialValue;
-  //   }
-  // }, []);
-
-  // const updateLocalStorageValue = (key: string, value: any) => {
-  //   try {
-  //     const valueToStore = value instanceof Function ? value(storedValue) : value;
-  //     setStoredValue(valueToStore);
-
-  //     if (typeof window !== 'undefined') {
-  //       localStorage.setItem(key, JSON.stringify(valueToStore));
-  //     }
-  //   } catch (error) {
-  //     console.error('Error setting localStorage:', error);
-  //   }
-  // };
-
-  // // Sync with localStorage if the key changes (optional)
-  // // useEffect(() => {
-  // //   if (typeof window === 'undefined') return;
-
-  // //   try {
-  // //     const item = localStorage.getItem(key);
-  // //     if (item) setStoredValue(JSON.parse(item));
-  // //   } catch (error) {
-  // //     console.error('Error reading localStorage:', error);
-  // //   }
-  // // }, [key]);
-
-  // return { storedValue, useStorage , updateLocalStorageValue };
-
-
-  return [storedValue, setItem]
-
+  return [storedValue, setItem, removeItem] as const;
 }

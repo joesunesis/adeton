@@ -1,15 +1,12 @@
-// import { promises as fs } from "fs";
 import { useCallback, useState } from "react";
 
 interface UseFetch {
-  data: any;
   loading: boolean;
   error: any;
   getData: (url: string, options?: object) => void;
 }
 
 export default function UseFetch() : UseFetch {
-  const [data, setData] = useState();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState();
   
@@ -21,14 +18,14 @@ export default function UseFetch() : UseFetch {
       if (!res.ok) 
         throw new Error('Request failed with status' + res.status + ". Message: " + res.text);
       const result = await res.json();
-      setData(result);
+      return result
     } catch (err) {
       console.error('Error: ', error);
       setError(error);
     } finally {
       setLoading(false);
     }
-  }, [data]);
+  }, []);
 
-  return { data, loading, error, getData }
+  return { loading, error, getData }
 }
