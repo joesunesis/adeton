@@ -1,14 +1,12 @@
 import { useEffect, useState } from 'react';
 
 export function useLocalStorage<T>(key: string, initialValue?: T) {
-  const [storedValue, setStoredValue] = useState<T>();
+  const [storedValue, setStoredValue] = useState<T | null>(null);
 
   useEffect(() => {
     const getItem = () => {
       try {
         const item = localStorage.getItem(key);
-        console.log(item);
-        
         setStoredValue(item ? JSON.parse(item) : initialValue);
       } catch (error) {
         console.log('Error accessing localStorage:', error);
@@ -30,7 +28,6 @@ export function useLocalStorage<T>(key: string, initialValue?: T) {
   const removeItem = () => {
     try {
       localStorage.removeItem(key);
-      setStoredValue(undefined as unknown as T);
     } catch (error) {
       console.log('Error removing localStorage:', error);
     }
