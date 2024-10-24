@@ -1,20 +1,18 @@
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 
-export function useLocalStorage<T>(key: string, initialValue?: T) {
-  const [storedValue, setStoredValue] = useState<T | null>(null);
+export function useLocalStorage<T>(key: string, initialValue: T) {
+  const isClient = typeof window !== 'undefined';
 
-  useEffect(() => {
-    const getItem = () => {
-      try {
-        const item = localStorage.getItem(key);
-        setStoredValue(item ? JSON.parse(item) : initialValue);
-      } catch (error) {
-        console.log('Error accessing localStorage:', error);
-        return initialValue;
-      }
+  const [storedValue, setStoredValue] = useState<T>(() => {
+    if (!isClient) return initialValue;
+    try {
+      const item = localStorage.getItem(key);
+      return item ? JSON.parse(item) : initialValue;
+    } catch (error) {
+      console.log('Error accessing localStorage:', error);
+      return initialValue;
     }
-    getItem();
-  }, [key, initialValue]);
+  });
 
   const setItem = (value: T) => {
     try {
@@ -28,10 +26,28 @@ export function useLocalStorage<T>(key: string, initialValue?: T) {
   const removeItem = () => {
     try {
       localStorage.removeItem(key);
+      setStoredValue(initialValue);
     } catch (error) {
       console.log('Error removing localStorage:', error);
     }
   };
+
+  useEffect(() => {
+    const handleStorageChange = (event: StorageEvent) => {
+      if (event.key === key) {
+        try {
+          setStoredValue(event.newValue ? JSON.parse(event.newValue) : initialValue);
+        } catch (error) {
+          console.error('Error parsing localStorage event value:', error);
+        }
+      }
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+    };
+  }, [key, initialValue]);
 
   return [storedValue, setItem, removeItem] as const;
 }

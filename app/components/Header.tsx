@@ -4,17 +4,15 @@ import { useLocalStorage } from '../context/useLocalStorage';
 import { User } from '../types/user';
 import MaxWidthWrapper from './MaxWidthWrapper';
 import { Icons } from './Icons';
+import { useEffect } from 'react';
 
 const Header = () => {
-  const { logout } = useAuth();
-  const [token] = useLocalStorage<string | null>('tokenAPI');
-  const [user] = useLocalStorage<User | null>('userDetails');
-
+  const { user, logout } = useAuth();
+  
   const handleLogout = (e: React.FormEvent) => {
     e.preventDefault();
-    user?.phone && logout(user.phone);
+    user?.phone && logout();
   };
-
 
   return (
     <header className="shadow-lg border-t border-gray-300 p-4 flex justify-between items-center w-full top-0 z-50">
@@ -26,7 +24,7 @@ const Header = () => {
               Yeton
             </Link>
             <div className="h-full flex items-center space-x-4">
-              {token ? (
+              {user ? (
                 <div>
                   <span>{user?.name || 'User'} ✨ </span>
                   <button onClick={handleLogout} className="ml-4 bg-red-500 text-white p-2 rounded-lg">
