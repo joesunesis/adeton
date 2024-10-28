@@ -27,13 +27,16 @@ const Header = () => {
         <MaxWidthWrapper>
           <div className="flex items-center justify-between border-zinc-200">
             {/* Logo */}
-            <Link href='/' className='flex z-40 text-xl font-semibold'>
+            <Link href='/' className='flex z-40 text-2xl font-semibold'>
               Yeton
             </Link>
             <div className="h-full flex items-center space-x-4">
               {storedUser ? (
                 <div>
                   <span>{user?.name || 'User'} ✨ </span>
+                    <Link href="/cart" className="text-red-500">
+                      🛒 Cart
+                    </Link>
                   <button onClick={handleLogout} className="ml-4 bg-red-500 text-white p-2 rounded-lg">
                     Logout
                   </button>
