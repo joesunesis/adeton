@@ -1,16 +1,23 @@
 import Link from 'next/link'
-import { useAuth } from '../context/AuthContext';
-import { useLocalStorage } from '../context/useLocalStorage';
-import { User } from '../types/user';
+import { useEffect, useState } from 'react';
 import MaxWidthWrapper from './MaxWidthWrapper';
-import { Icons } from './Icons';
-import { useEffect } from 'react';
+import { useAuth } from '../context/AuthContext';
+import { User } from '../types/user';
 
 const Header = () => {
   const { user, logout } = useAuth();
+  const [storedUser, setUser] = useState<User | null>(null);
   
+  useEffect(() => {
+    const storedUser = user;
+    if (storedUser) {
+      setUser(storedUser);
+    }
+  }, [user]);
+
   const handleLogout = (e: React.FormEvent) => {
     e.preventDefault();
+    setUser(null);
     user?.phone && logout();
   };
 
@@ -24,7 +31,7 @@ const Header = () => {
               Yeton
             </Link>
             <div className="h-full flex items-center space-x-4">
-              {user ? (
+              {storedUser ? (
                 <div>
                   <span>{user?.name || 'User'} ✨ </span>
                   <button onClick={handleLogout} className="ml-4 bg-red-500 text-white p-2 rounded-lg">
