@@ -1,4 +1,4 @@
-import { useAuth } from '@/app/context/AuthContext';
+import { useAuth } from '@/app/core/AuthContext';
 import { User } from '@/app/types/user';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';

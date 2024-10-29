@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import { useAuth } from '@/app/context/AuthContext';
+import { useAuth } from '../app/core/AuthContext';
 
 export default function Login() {
   const { authenticate, loading, redirect, setRedirect } = useAuth();

@@ -1,10 +1,10 @@
 import Link from 'next/link'
 import { useEffect, useState } from 'react';
 import MaxWidthWrapper from './MaxWidthWrapper';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../core/AuthContext';
 import { User } from '../types/user';
 import { useRouter } from 'next/router';
-import { useLocalStorage } from '../context/useLocalStorage';
+import { useLocalStorage } from '../core/useLocalStorage';
 
 const Header = () => {
   const { user, logout, setRedirect } = useAuth();
@@ -35,9 +35,9 @@ const Header = () => {
               {storedUser ? (
                 <div>
                   <span>{user?.name || 'User'} ✨ </span>
-                    <Link href="/cart" className="text-red-500">
-                      🛒 Cart
-                    </Link>
+                  <Link href="/cart" className="text-red-500">
+                    🛒 Cart
+                  </Link>
                   <button onClick={handleLogout} className="ml-4 bg-red-500 text-white p-2 rounded-lg">
                     Logout
                   </button>

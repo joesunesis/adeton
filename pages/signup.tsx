@@ -1,4 +1,4 @@
-import { useAuth } from '@/app/context/AuthContext';
+import { useAuth } from '@/app/core/AuthContext';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import Link from 'next/link';
