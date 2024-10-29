@@ -22,7 +22,6 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser, removeUser] = useLocalStorage<User | null>('userDetails', null);
   const [token, setToken, removeToken] = useLocalStorage<string | null>('tokenAPI', null);
   const [redirect, setRedirect, removeRedirect] = useLocalStorage<string>('redirect', '/');
-  const [data, setData] = useState<any>(null);
 
   const authenticate = async (phone: string, password: string) => {
     try {
@@ -34,11 +33,14 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
       if (fetchData) {
         setToken(fetchData.token);
         setUser(fetchData.user);
+      } else {
+        throw new Error("Authentication failed");
       }
-      if (error) throw new Error("Authentication failed");
     } catch (err) {
       console.error("Login failed:", err);
     }
+    console.log(redirect);
+
   };
 
   const register = async (name: string, email: string, phone: string, gender: string, password: string, imageUrl?: string) => {
@@ -48,11 +50,8 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
         body: JSON.stringify({ name, email, phone, imageUrl, password, gender }),
         headers: { 'Content-Type': 'application/json' }
       });
-      if (fetchData) {
-        setData(fetchData);
-      } else {
-        throw new Error("Registration failed");
-      }
+      fetchData && setRedirect('/signin');
+      if (error) throw new Error(`Registration failed: ${error}`);
     } catch (err) {
       console.error("Registration failed:", err);
     }
@@ -62,15 +61,16 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
     try {
       const fetchData = await getData('users/logout', {
         method: 'POST',
-        body: JSON.stringify({ phone: user?.phone }),
+        body: JSON.stringify({ phone: user?.phone }), // Use user phone
         headers: { 'Content-Type': 'application/json' }
       });
       if (fetchData) {
         removeUser();
         removeToken();
         removeRedirect();
-      } 
-      if (error) throw new Error(`Logout failed: ${error}`);
+      } else {
+        throw new Error("Logout failed");
+      }
     } catch (err) {
       console.error("Logout failed:", err);
     }
