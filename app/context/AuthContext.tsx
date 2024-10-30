@@ -11,6 +11,8 @@ interface AuthContextProps {
   logout: () => Promise<void>;
   loading: boolean;
   error: any;
+  redirect: string;
+  setRedirect: (path: string) => void;
 }
 
 const AuthContext = createContext<AuthContextProps | undefined>(undefined);
@@ -19,8 +21,9 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
   const { getData, error, loading } = UseFetch();
   const [user, setUser, removeUser] = useLocalStorage<User | null>('userDetails', null);
   const [token, setToken, removeToken] = useLocalStorage<string | null>('tokenAPI', null);
+  const [redirect, setRedirect, removeRedirect] = useLocalStorage<string>('redirect', '/');
   const [data, setData] = useState<any>(null);
-
+  
   const authenticate = async (phone: string, password: string) => {
     try {
       const loginOpts = {
@@ -39,8 +42,10 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
     } catch (err) {
       console.error("Login failed:", err);
     }
+    console.log(redirect);
+    
   };
-  
+
   const register = async (name: string, email: string, phone: string, gender: string, password: string, imageUrl?: string) => {
     try {
       const registerOpts = {
@@ -68,9 +73,10 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
       };
       const fetchData = await getData('users/logout', logoutOpts);
       if (fetchData) {
-        removeUser(); // Clear user from localStorage
-        removeToken(); // Clear token from localStorage
-        setData(null); // Clear local data
+        removeUser();
+        removeToken();
+        removeRedirect();
+        setData(null);
       } else {
         throw new Error("Logout failed");
       }
@@ -80,7 +86,7 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   return (
-    <AuthContext.Provider value={{ user, token, authenticate, register, logout, loading, error }}>
+    <AuthContext.Provider value={{ user, token, authenticate, register, logout, loading, error, redirect, setRedirect }}>
       {children}
     </AuthContext.Provider>
   );

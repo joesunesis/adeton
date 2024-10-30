@@ -1,22 +1,24 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import { useAuth } from '../app/context/AuthContext';
+import { useAuth } from '@/app/context/AuthContext';
 
 export default function Login() {
-  const { user, authenticate, loading } = useAuth();
+  const { authenticate, loading, redirect, setRedirect } = useAuth();
   const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
   const router = useRouter();
-
+  
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-     if (phone == '' && password == '') 
+    if (phone == '' && password == '')
       return alert('phone and password is incorrect!');
     await authenticate(phone, password);
+    router.push(redirect);
+    setRedirect('/');
   };
-  if (loading) return <div>Loading ..... </div>  
-  user && router.push('/');
+
+  if (loading) return <div>Loading ..... </div>
 
   return (
     <div className="flex items-center justify-center h-screen">

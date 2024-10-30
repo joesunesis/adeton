@@ -3,22 +3,23 @@ import { useEffect, useState } from 'react';
 import MaxWidthWrapper from './MaxWidthWrapper';
 import { useAuth } from '../context/AuthContext';
 import { User } from '../types/user';
+import { useRouter } from 'next/router';
+import { useLocalStorage } from '../context/useLocalStorage';
 
 const Header = () => {
-  const { user, logout } = useAuth();
+  const { user, logout, setRedirect } = useAuth();
   const [storedUser, setUser] = useState<User | null>(null);
+  const router = useRouter();
   
   useEffect(() => {
-    const storedUser = user;
-    if (storedUser) {
-      setUser(storedUser);
-    }
+    setUser(user ? user : storedUser);
   }, [user]);
 
   const handleLogout = (e: React.FormEvent) => {
     e.preventDefault();
     setUser(null);
     user?.phone && logout();
+    router.push('/');
   };
 
   return (
@@ -47,7 +48,7 @@ const Header = () => {
                     <button className="bg-[#90E401] text-black px-4 py-2 rounded">Join Now</button>
                   </Link>
                   <Link href="/signin">
-                    <button className="border border-[#90E401] text-[#90E401] px-4 py-2 rounded">Sign in</button>
+                    <button className="border border-[#90E401] text-[#90E401] px-4 py-2 rounded" onClick={() => setRedirect(router.pathname)}>Sign in</button>
                   </Link>
                 </div>
               )}

@@ -4,22 +4,27 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
 export default function Profile() {
-  const { user } = useAuth();
+  const { user, setRedirect } = useAuth();
   const [storedUser, setUser] = useState<User | null>(null);
+  const router = useRouter();
 
   useEffect(() => {
-    const storedUser = user;
-    if (storedUser) {
-      setUser(storedUser);
+    setUser(user || storedUser);
+  }, [user, storedUser]);
+
+  useEffect(() => {
+    if (!user && !storedUser) {
+      setRedirect(router.pathname);
+      router.push('/signin');
     }
-  }, [user]);
+  }, [user, storedUser, setRedirect, router]);
 
   return (
     <div className="p-4">
       <h2 className="text-xl font-bold mb-4">Profile</h2>
       <div className="bg-white p-4 shadow rounded-lg">
-        <p>Username: { storedUser?.name }</p>
+        <p>Username: {storedUser?.name}</p>
       </div>
     </div>
   );
-};
+}

@@ -1,10 +1,27 @@
-import { useState } from 'react';
+import { useAuth } from '@/app/context/AuthContext';
+import { User } from '@/app/types/user';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 
 export default function Order() {
+  const { user, setRedirect } = useAuth();
   const [cartItems, setCartItems] = useState([
     { id: 1, name: 'Product 1', price: '$10', quantity: 1 },
     { id: 2, name: 'Product 2', price: '$20', quantity: 2 },
   ]);
+  const [storedUser, setUser] = useState<User | null>(null);
+  const router = useRouter();
+
+  useEffect(() => {
+    setUser(user || storedUser);
+  }, [user, storedUser]);
+
+  useEffect(() => {
+    if (!user && !storedUser) {
+      setRedirect(router.pathname);
+      router.push('/signin');
+    }
+  }, [user, storedUser, setRedirect, router]);
 
   const totalAmount = cartItems.reduce((total, item) => total + parseFloat(item.price.slice(1)) * item.quantity, 0);
 
