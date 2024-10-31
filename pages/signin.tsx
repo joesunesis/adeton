@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useAuth } from '../app/core/AuthContext';
 
 export default function Login() {
-  const { authenticate, loading, redirect, setRedirect } = useAuth();
+  const { token, authenticate, loading, redirect, setRedirect } = useAuth();
   const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
   const router = useRouter();
@@ -18,6 +18,7 @@ export default function Login() {
     setRedirect('/');
   };
 
+  (token) && router.push(redirect);
   if (loading) return <div>Loading ..... </div>
 
   return (

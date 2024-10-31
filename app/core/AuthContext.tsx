@@ -42,8 +42,6 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
     } catch (err) {
       console.error("Login failed:", err);
     }
-    console.log(redirect);
-    
   };
 
   const register = async (name: string, email: string, phone: string, gender: string, password: string, imageUrl?: string) => {
