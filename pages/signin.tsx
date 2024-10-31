@@ -18,7 +18,7 @@ export default function Login() {
     setRedirect('/');
   };
 
-  (token) && router.push(redirect);
+  token && router.push(redirect);
   if (loading) return <div>Loading ..... </div>
 
   return (
