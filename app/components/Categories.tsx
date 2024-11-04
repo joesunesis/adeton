@@ -20,7 +20,7 @@ export default function Categories() {
   return (
     <div className="flex overflow-x-auto space-x-4 py-2">
       {categories?.map((category, i) => (
-        <Link href={`/category/${category.categoryId}`} key={i} className="p-2 bg-gray-100 rounded-lg text-center">
+        <Link href={`/category/${category.categoryId}`} key={i} className="px-4 py-2 rounded-lg text-center bg-[#343247]">
           <span className="text-sm">{category.name}</span>
         </Link>
       ))}

@@ -36,7 +36,7 @@ export default function SearchPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0E0B29] text-white p-4">
+    <div>
       {/* Header */}
       <div className="flex items-center space-x-4 mb-4">
         <button onClick={() => router.back()} className="text-blue-500 bg-[#2c2674] rounded-2xl p-4">

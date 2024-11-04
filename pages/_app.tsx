@@ -11,10 +11,10 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <AuthProvider>
       <DynamicHeader />
-      <main className="flex-grow">
+      <main className="flex-grow min-h-screen bg-[#100E26] text-white p-4">
         <Component {...pageProps} />
-        <FixedNavigation />
       </main>
+      <FixedNavigation />
       <Footer />
     </AuthProvider>
   );
