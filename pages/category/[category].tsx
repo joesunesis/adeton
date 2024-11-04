@@ -10,6 +10,21 @@ export default function Category() {
   const [item, fetchItems] = useState<Category | null>(null);
   const router = useRouter();
   const { category } = router.query;
+  const { getData, error } = UseFetch();
+  const [item, fetchItems] = useState<Category | null>(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getData(`categories/${category}`);
+        fetchItems(data);
+      } catch (err) {
+        console.error("Error fetching all items: ", err);
+      }
+    }
+
+    fetchData();
+  }, [getData]);
 
   useEffect(() => {
     const fetchData = async () => {

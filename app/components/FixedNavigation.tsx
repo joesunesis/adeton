@@ -22,6 +22,11 @@ export default function FixedNavigation() {
             <CircleDot className="w-6 h-6 mb-1" />
             <span className="text-md">Orders</span>
           </button>
+        {/* <Link href="/category" className="text-blue-500 hover:text-blue-700">
+          Categories
+        </Link> */}
+        <Link href="/order" className="text-blue-500 hover:text-blue-700">
+          Cart
         </Link>
         <Link href="/profile">
           <button className="flex flex-col items-center hover:text-text-blue-700">
