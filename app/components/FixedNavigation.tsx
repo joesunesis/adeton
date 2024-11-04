@@ -7,9 +7,9 @@ export default function FixedNavigation() {
         <Link href="/" className="text-blue-500 hover:text-blue-700">
           Home
         </Link>
-        <Link href="/category" className="text-blue-500 hover:text-blue-700">
+        {/* <Link href="/category" className="text-blue-500 hover:text-blue-700">
           Categories
-        </Link>
+        </Link> */}
         <Link href="/order" className="text-blue-500 hover:text-blue-700">
           Cart
         </Link>

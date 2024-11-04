@@ -1,23 +1,30 @@
+import ItemCard from "@/app/components/ItemCard";
+import UseFetch from "@/app/core/Fetch";
+import { Item } from "@/app/types/item";
+import { useState, useEffect } from "react";
+
 export default function ProductList() {
-  const products = [
-    { id: 1, name: 'Product 1', price: '$10' },
-    { id: 2, name: 'Product 2', price: '$20' },
-    { id: 3, name: 'Product 3', price: '$30' },
-  ];
+  const { getData, error } = UseFetch();
+  const [items, fetchItems] = useState<Item[] | null>(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getData('items');
+        fetchItems(data);
+      } catch (err) {
+        console.error("Error fetching all items: ", err);
+      }
+    }
+
+    fetchData();
+  }, [getData]);
 
   return (
-    <div className="p-4">
-      <h2 className="text-xl font-bold mb-4">Product List</h2>
-      <ul>
-        {products.map((product) => (
-          <li key={product.id} className="mb-4">
-            <div className="p-4 bg-white shadow rounded-lg">
-              <h3 className="text-lg">{product.name}</h3>
-              <p>{product.price}</p>
-            </div>
-          </li>
-        ))}
-      </ul>
+    <div className="mt-4 grid grid-cols-2 gap-4">
+      {items?.map((item, index) => (
+        <ItemCard item={item} key={index} />
+      ))}
     </div>
   );
 };
