@@ -12,12 +12,9 @@ export default function ProductDetail() {
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        const data = await getData(`items/${id}`);
-        fetchItems(data);
-      } catch (err) {
-        console.error("Error fetching all items: ", err);
-      }
+      const data = await getData(`items/${id}`);
+      fetchItems(data);
+      error &&  console.error("Error fetching all items: ", error);
     }
 
     fetchData();

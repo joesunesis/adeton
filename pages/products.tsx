@@ -9,13 +9,10 @@ export default function ProductList() {
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        const data = await getData('items');
-        fetchItems(data);
-      } catch (err) {
-        console.error("Error fetching all items: ", err);
+      const data = await getData('items');
+      fetchItems(data);
+      error && console.error("Error fetching all items: ", error);
       }
-    }
 
     fetchData();
   }, [getData]);

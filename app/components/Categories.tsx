@@ -9,16 +9,9 @@ export default function Categories() {
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        const data = await getData("categories");
-        if (Array.isArray(data)) {
-          setCategories(data);
-        } else {
-          console.error("Expected an array of categories but got:", data);
-        }
-      } catch (err) {
-        console.error("Error fetching categories: ", err);
-      }
+      const data = await getData("categories");
+      setCategories(data);
+      error &&  console.error("Error fetching categories: ", error);
     };
 
     fetchData();

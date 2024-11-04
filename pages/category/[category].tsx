@@ -6,19 +6,16 @@ import { useState, useEffect } from 'react';
 import { Category } from '@/app/types/category';
 
 export default function Category() {
-  const router = useRouter();
-  const { category } = router.query;
   const { getData, error } = UseFetch();
   const [item, fetchItems] = useState<Category | null>(null);
+  const router = useRouter();
+  const { category } = router.query;
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
         const data = await getData(`categories/${category}`);
         fetchItems(data);
-      } catch (err) {
-        console.error("Error fetching all items: ", err);
-      }
+        error && console.error("Error fetching all items: ", error);
     }
 
     fetchData();

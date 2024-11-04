@@ -13,6 +13,7 @@ export default function Login() {
     e.preventDefault();
     if (phone == '' && password == '')
       return alert('phone and password is incorrect!');
+    
     await authenticate(phone, password);
     router.push(redirect);
     setRedirect('/');

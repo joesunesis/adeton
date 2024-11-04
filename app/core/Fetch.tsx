@@ -21,7 +21,7 @@ export default function UseFetch(): UseFetch {
       const result = await res.json();
       return await result;
     } catch (err) {
-      console.error('Error: ', err);
+      console.error('Fetch Error: ', err);
       setError(err); 
       return null; 
     } finally {
