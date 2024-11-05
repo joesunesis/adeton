@@ -8,25 +8,25 @@ export default function FixedNavigation() {
         <Link href="/">
           <button className="flex flex-col items-center hover:text-text-blue-700">
             <Home className="w-6 h-6 mb-1" />
-            <span className="text-sm">Home</span>
+            <span className="text-md">Home</span>
           </button>
         </Link>
         <Link href="/category">
           <button className="flex flex-col items-center hover:text-text-blue-700">
             <Layers3 className="w-6 h-6 mb-1" />
-            <span className="text-sm">Categories</span>
+            <span className="text-md">Categories</span>
           </button>
         </Link>
         <Link href="/order">
           <button className="flex flex-col items-center hover:text-text-blue-700">
             <CircleDot className="w-6 h-6 mb-1" />
-            <span className="text-sm">Orders</span>
+            <span className="text-md">Orders</span>
           </button>
         </Link>
         <Link href="/profile">
           <button className="flex flex-col items-center hover:text-text-blue-700">
             <User className="w-6 h-6 mb-1" />
-            <span className="text-sm">Account</span>
+            <span className="text-md">Account</span>
           </button>
         </Link>
       </div>

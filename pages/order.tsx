@@ -36,7 +36,7 @@ export default function Order() {
       <ul>
         {cartItems.map((item) => (
           <li key={item.id} className="mb-4">
-            <div className="p-4 bg-white shadow rounded-lg flex justify-between items-center">
+            <div className="p-4 bg-white text-black shadow rounded-lg flex justify-between items-center">
               <div>
                 <h3 className="text-lg">{item.name}</h3>
                 <p>Price: {item.price}</p>

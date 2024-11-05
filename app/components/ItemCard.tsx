@@ -23,15 +23,8 @@ const ItemCard: React.FC<ItemCardProps> = ({ item }) => {
           </div>
           {/* Product Name */}
           <h3 className="text-white text-lg font-semibold mb-2">{item.name}</h3>
-          {/* Product Specifications */}
-          <p className="text-sm">4-mic ENC HD Voice</p>
-          <p className="text-sm">30dB ANC Noise Cancellation</p>
-          {/* Price and Discount */}
           <div className="flex items-center space-x-2 mt-2">
-            <span className="text-green-400 font-semibold">${item.price}</span>
-            {/* {item.originalPrice && (
-              <span className="line-through text-gray-500">${item.originalPrice}</span>
-            )} */}
+            <span className="text-green-400 font-semibold">GH¢ {item.price}</span>
           </div>
         </div>
       </Link>

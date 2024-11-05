@@ -40,7 +40,7 @@ const Header = () => {
               {storedUser ? (
                 <div>
                   <span>{user?.name || 'User'} ✨ </span>
-                  <Link href="/cart" className="text-red-500">
+                  <Link href="/order" className="text-red-500">
                     🛒 Cart
                   </Link>
                   <button onClick={handleLogout} className="ml-4 bg-red-500 text-white p-2 rounded-lg">
