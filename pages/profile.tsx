@@ -3,17 +3,19 @@ import { User } from '@/app/types/user';
 import { useAuth } from '@/app/context/AuthContext';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { UserDetails } from '@/app/components';
+import { Address, UserDetails } from '@/app/components';
 import UseFetch from '@/app/context/Fetch';
 
 export default function Profile() {
   const { getData, error, loading } = UseFetch();
   const { user, setRedirect } = useAuth();
   const [storedUser, setUser] = useState<User | null>(null);
+  const [updatedUser, setUpdatedUser] = useState<User | null>(null);
   const router = useRouter();
-
+  
   useEffect(() => {
     setUser(user || storedUser);
+    setUpdatedUser(user || storedUser);
   }, [user, storedUser]);
 
   useEffect(() => {
@@ -23,7 +25,7 @@ export default function Profile() {
     }
   }, [user, storedUser, setRedirect, router]);
 
-  const updateUserDetails = async (userDetails: Partial<User>) => {
+  const updateUserDetails = async (userDetails: User) => {
     const response = await getData('/user/update', {
       method: 'POST',
       body: JSON.stringify(userDetails),
@@ -32,6 +34,20 @@ export default function Profile() {
 
     if (response) {
       setUser(response);
+      setUpdatedUser(response);
+    }
+  };
+
+  // Handler for updating the address request
+  const updateAddress = async (address: {}) => {
+    const response = await getData('/address', {
+      method: 'POST',
+      body: JSON.stringify({ userId: user?.userId, address }),
+      headers: { 'Content-Type': 'application/json' },
+    });
+
+    if (!response) {
+      console.error("Could not save address");
     }
   };
 
@@ -40,7 +56,10 @@ export default function Profile() {
       <h2 className="text-2xl font-bold mb-6 text-center">Profile</h2>
 
       {/* User Details Section */}
-      <UserDetails user={storedUser} updateUserDetails={updateUserDetails} />
+      <UserDetails user={updatedUser} />
+
+      {/* Address Section */}
+        <Address user={user && user.userId} updateAddress={updateAddress} />
     </div>
   );
 }

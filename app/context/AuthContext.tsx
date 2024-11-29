@@ -23,15 +23,14 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
   const [token, setToken, removeToken] = useLocalStorage<string | null>('tokenAPI', null);
   const [redirect, setRedirect, removeRedirect] = useLocalStorage<string>('redirect', '/');
   const [data, setData] = useState<any>(null);
-  
+
   const authenticate = async (phone: string, password: string) => {
     try {
-      const loginOpts = {
+      const fetchData = await getData('login', {
         method: 'POST',
         body: JSON.stringify({ phone, password }),
         headers: { 'Content-Type': 'application/json' }
-      };
-      const fetchData = await getData('login', loginOpts);
+      });
       if (fetchData) {
         setToken(fetchData.token);
         setUser(fetchData.user);
@@ -43,17 +42,16 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
       console.error("Login failed:", err);
     }
     console.log(redirect);
-    
+
   };
 
   const register = async (name: string, email: string, phone: string, gender: string, password: string, imageUrl?: string) => {
     try {
-      const registerOpts = {
+      const fetchData = await getData('register', {
         method: 'POST',
         body: JSON.stringify({ name, email, phone, imageUrl, password, gender }),
         headers: { 'Content-Type': 'application/json' }
-      };
-      const fetchData = await getData('register', registerOpts);
+      });
       if (fetchData) {
         setData(fetchData);
       } else {
@@ -66,12 +64,11 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
 
   const logout = async () => {
     try {
-      const logoutOpts = {
+      const fetchData = await getData('users/logout', {
         method: 'POST',
         body: JSON.stringify({ phone: user?.phone }), // Use user phone
         headers: { 'Content-Type': 'application/json' }
-      };
-      const fetchData = await getData('users/logout', logoutOpts);
+      });
       if (fetchData) {
         removeUser();
         removeToken();
