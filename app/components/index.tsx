@@ -1,6 +1,7 @@
 import FixedNavigation from "./FixedNavigation";
 import MaxWidthWrapper from "./MaxWidthWrapper";
 import Icons from "./Icons";
-import RegionCitySelect from './RegionCitySelect'
+import Address from './Address'
+import UserDetails from "./UserDetails";
 
-export { FixedNavigation, MaxWidthWrapper, Icons, RegionCitySelect };
+export { FixedNavigation, MaxWidthWrapper, Icons, Address, UserDetails };
