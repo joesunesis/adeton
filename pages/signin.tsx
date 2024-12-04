@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import { useAuth } from '@/app/context/AuthContext';
+import { useAuth } from '../app/core/AuthContext';
 
 export default function Login() {
-  const { authenticate, loading, redirect, setRedirect } = useAuth();
+  const { token, authenticate, loading, redirect, setRedirect } = useAuth();
   const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
   const router = useRouter();
@@ -13,11 +13,13 @@ export default function Login() {
     e.preventDefault();
     if (phone == '' && password == '')
       return alert('phone and password is incorrect!');
+    
     await authenticate(phone, password);
     router.push(redirect);
     setRedirect('/');
   };
 
+  token && router.push(redirect);
   if (loading) return <div>Loading ..... </div>
 
   return (

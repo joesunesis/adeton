@@ -1,26 +1,29 @@
-import { useAuth } from '@/app/context/AuthContext';
+import { useAuth } from '@/app/core/AuthContext';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import Link from 'next/link';
 
 export default function Signup() {
-  const { data, register } = useAuth();
-  const router = useRouter();
+  const { token, register, loading, redirect, setRedirect } = useAuth();
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [gender, setGender] = useState('');
   const [password, setPassword] = useState('');
+  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle signup logic here
     if (fullName == '' && email == '' && phone == '' && gender == '' && password == '')
       return alert('Incorrect Details!');
 
     await register(fullName, email, phone, gender, password);
-    data && router.push('/products');
+    router.push(redirect);
+    setRedirect('/');
   };
+
+  token && router.push(redirect);
+  if (loading) return <div>Loading ..... </div>
 
   return (
     <div className="flex items-center justify-center h-screen bg-white">

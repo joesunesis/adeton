@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { useState, useEffect } from 'react';
 
 interface Category {
@@ -9,7 +10,6 @@ export default function Categories() {
   const [categories, setCategories] = useState<Category[]>([]);
 
   useEffect(() => {
-    // Simulate an API call
     setCategories([
       { id: 1, name: 'Electronics' },
       { id: 2, name: 'Clothing' },
@@ -24,7 +24,11 @@ export default function Categories() {
         {categories.map((category) => (
           <li key={category.id} className="mb-4">
             <div className="p-4 bg-white shadow rounded-lg">
-              <h3 className="text-lg">{category.name}</h3>
+              <h3 className="text-lg">
+                <Link href={`/category/${category.name.toLowerCase()}`}>
+                  {category.name}
+                </Link>
+              </h3>
             </div>
           </li>
         ))}
