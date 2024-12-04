@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Item } from "@/app/types/item"; // Assuming `Item` includes necessary fields like name, price, description, etc.
-import UseFetch from "@/app/core/Fetch";
+import UseFetch from "@/app/context/Fetch";
 import { useRouter } from "next/router";
 
 const ProductPage = () => {
