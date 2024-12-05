@@ -25,7 +25,7 @@ export default function Profile() {
     }
   }, [user, storedUser, setRedirect, router]);
 
-  const updateUserDetails = async (userDetails: User) => {
+  const updateUserDetails = async (userDetails: Partial<User>) => {
     const response = await getData('/user/update', {
       method: 'POST',
       body: JSON.stringify(userDetails),
@@ -56,7 +56,7 @@ export default function Profile() {
       <h2 className="text-2xl font-bold mb-6 text-center">Profile</h2>
 
       {/* User Details Section */}
-      <UserDetails user={updatedUser} />
+      <UserDetails user={updatedUser} updateUserDetails={updateUserDetails} />
 
       {/* Address Section */}
         <Address user={user && user.userId} updateAddress={updateAddress} />
