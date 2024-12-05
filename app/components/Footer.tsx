@@ -16,13 +16,13 @@ const Footer = () => {
 
         {/* Store Name and Payment Info */}
         <div className="text-center mb-8">
-          <h2 className="text-xl font-bold mb-4">YOUR STORE • GHANA</h2>
+          <h2 className="text-xl font-bold mb-4">ADETON • GHANA</h2>
 
-          {/* Payment Details */}
-          <div className="mb-6">
+          {/* Payment Details 
+           <div className="mb-6">
             <p className="text-gray-400 mb-2">Payment methods</p>
             <div className="flex justify-center gap-4 mb-4">
-              {/* Payment Method Icons - Replace with your actual payment method logos */}
+              {/* Payment Method Icons - Replace with your actual payment method logos 
               <div className="bg-gray-700 rounded-full p-2">
                 <img src="/api/placeholder/32/32" alt="Payment 1" className="w-8 h-8" />
               </div>
@@ -33,7 +33,7 @@ const Footer = () => {
                 <img src="/api/placeholder/32/32" alt="Payment 3" className="w-8 h-8" />
               </div>
             </div>
-          </div>
+          </div> */}
 
           {/* Terms and Legal */}
           <p className="text-sm text-gray-400 mb-6 max-w-2xl mx-auto">
