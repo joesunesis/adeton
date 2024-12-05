@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { ghanaRegions } from './RegionsDeata';
-import UseFetch from '../context/Fetch';
+import UseFetch from '../core/Fetch';
 
 interface AddressProps {
   user: string | null;

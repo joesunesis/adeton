@@ -1,20 +1,39 @@
+import { Menu, CircleDot, User, Home, Layers3, ShoppingBag, ShoppingCart } from 'lucide-react';
 import Link from 'next/link';
 
 export default function FixedNavigation() {
   return (
     <nav className="fixed bottom-0 left-0 right-0 bg-white/75 backdrop-blur-lg shadow-lg border-t border-gray-300 w-full z-50 rounded-md">
-      <div className="flex justify-around py-2">
-        <Link href="/" className="text-blue-500 hover:text-blue-700">
-          Home
+      <div className="flex justify-around items-center py-4 mx-auto">
+        <Link href="/">
+          <button className="flex flex-col items-center hover:text-text-blue-700">
+            <Home className="w-6 h-6 mb-1" />
+            <span className="text-md">Home</span>
+          </button>
         </Link>
-        <Link href="/category" className="text-blue-500 hover:text-blue-700">
-          Categories
+        <Link href="/category">
+          <button className="flex flex-col items-center hover:text-text-blue-700">
+            <Layers3 className="w-6 h-6 mb-1" />
+            <span className="text-md">Categories</span>
+          </button>
         </Link>
-        <Link href="/order" className="text-blue-500 hover:text-blue-700">
-          Cart
+        <Link href="/order">
+          <button className="flex flex-col items-center hover:text-text-blue-700">
+            <ShoppingBag className="w-6 h-6 mb-1" />
+            <span className="text-md">Orders</span>
+          </button>
         </Link>
-        <Link href="/profile" className="text-blue-500 hover:text-blue-700">
-          My Account
+        <Link href="/order">
+          <button className="flex flex-col items-center hover:text-text-blue-700">
+            <ShoppingCart className="w-6 h-6 mb-1" />
+            <span className="text-md">Cart</span>
+            </button>
+        </Link>
+        <Link href="/profile">
+          <button className="flex flex-col items-center hover:text-text-blue-700">
+            <User className="w-6 h-6 mb-1" />
+            <span className="text-md">Account</span>
+          </button>
         </Link>
       </div>
     </nav>

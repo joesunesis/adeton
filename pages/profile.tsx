@@ -1,10 +1,10 @@
 // src/pages/profile.tsx
 import { User } from '@/app/types/user';
-import { useAuth } from '@/app/context/AuthContext';
+import { useAuth } from '@/app/core/AuthContext';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { Address, UserDetails } from '@/app/components';
-import UseFetch from '@/app/context/Fetch';
+import UseFetch from '@/app/core/Fetch';
 
 export default function Profile() {
   const { getData, error, loading } = UseFetch();

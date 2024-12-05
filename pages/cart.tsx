@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
-import { useAuth } from '../app/context/AuthContext';
+import { useAuth } from '../app/core/AuthContext';
 import { useRouter } from 'next/router';
+import { User } from '@/app/types/user';
 
 interface Order {
   id: number;
@@ -11,24 +12,31 @@ interface Order {
 
 export default function Orders() {
   const { user } = useAuth();
-  const [orders, setOrders] = useState<Order[]>([]);
   const router = useRouter();
+  const [orders, setOrders] = useState<Order[]>([]);
+  const [storedUser, setUser] = useState<User | null>(null);
 
   useEffect(() => {
-    if (!user) {
-      router.push('/signin');
-    } else {
-      // Simulate an API call for orders
-      setOrders([
-        { id: 1, productName: 'Product 1', totalAmount: '$100', date: '2023-10-01' },
-        { id: 2, productName: 'Product 2', totalAmount: '$50', date: '2023-09-25' },
-      ]);
-    }
+    const storedUser = user;
+    setUser(storedUser ? storedUser : null);
+    !storedUser && router.push('/signin')
   }, [user, router]);
 
-  if (!user) {
-    return <div>Loading...</div>;
-  }
+  // useEffect(() => {
+  //   if (!user) {
+  //     router.push('/signin');
+  //   } else {
+  //     // Simulate an API call for orders
+  //     setOrders([
+  //       { id: 1, productName: 'Product 1', totalAmount: '$100', date: '2023-10-01' },
+  //       { id: 2, productName: 'Product 2', totalAmount: '$50', date: '2023-09-25' },
+  //     ]);
+  //   }
+  // }, [user, router]);
+
+  // if (!user) {
+  //   return <div>Loading...</div>;
+  // }
 
   return (
     <div className="p-4">
