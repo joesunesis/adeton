@@ -1,4 +1,4 @@
-import { Menu, CircleDot, User, Home, Layers3 } from 'lucide-react';
+import { Menu, CircleDot, User, Home, Layers3, ShoppingBag, ShoppingCart } from 'lucide-react';
 import Link from 'next/link';
 
 export default function FixedNavigation() {
@@ -19,14 +19,15 @@ export default function FixedNavigation() {
         </Link>
         <Link href="/order">
           <button className="flex flex-col items-center hover:text-text-blue-700">
-            <CircleDot className="w-6 h-6 mb-1" />
+            <ShoppingBag className="w-6 h-6 mb-1" />
             <span className="text-md">Orders</span>
           </button>
-        {/* <Link href="/category" className="text-blue-500 hover:text-blue-700">
-          Categories
-        </Link> */}
-        <Link href="/order" className="text-blue-500 hover:text-blue-700">
-          Cart
+        </Link>
+        <Link href="/order">
+          <button className="flex flex-col items-center hover:text-text-blue-700">
+            <ShoppingCart className="w-6 h-6 mb-1" />
+            <span className="text-md">Cart</span>
+            </button>
         </Link>
         <Link href="/profile">
           <button className="flex flex-col items-center hover:text-text-blue-700">
