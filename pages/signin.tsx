@@ -23,21 +23,21 @@ export default function Login() {
 
   return (
     <div className="flex items-center justify-center h-screen">
-      <form onSubmit={handleSubmit} className="w-80 p-6 rounded-lg shadow-lg bg-gray-50">
+      <form onSubmit={handleSubmit} className="w-80 p-6 rounded-lg shadow-lg border border-gray-400">
         <h1 className="text-2xl font-bold mb-6 text-center">Welcome Back</h1>
         <input
           type="text"
           placeholder="Phone Number"
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
-          className="w-full p-2 mb-4 border border-gray-300 rounded-lg"
+          className="w-full p-2 mb-4 border border-gray-300 rounded-lg text-black"
         />
         <input
           type="password"
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="w-full p-2 mb-4 border border-gray-300 rounded-lg"
+          className="w-full p-2 mb-4 border border-gray-300 rounded-lg text-black"
         />
         <div className="flex justify-between items-center mb-4">
           <label className="flex items-center">
