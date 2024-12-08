@@ -31,14 +31,14 @@ export default function Login() {
           placeholder="Phone Number"
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
-          className="w-full p-2 mb-4 border border-gray-300 rounded-lg"
+          className="w-full p-2 mb-4 border border-gray-300 rounded-lg text-black"
         />
         <input
           type="password"
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="w-full p-2 mb-4 border border-gray-300 rounded-lg"
+          className="w-full p-2 mb-4 border border-gray-300 rounded-lg text-black"
         />
         <div className="flex justify-between items-center mb-4">
           <label className="flex items-center">
