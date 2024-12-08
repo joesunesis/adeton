@@ -45,7 +45,7 @@ export default function Login() {
             <input type="checkbox" className="mr-2" />
             Remember Me
           </label>
-          <Link href="#">
+          <Link href="reset-password">
             <span className="text-green-500 underline">Forgot Password?</span>
           </Link>
         </div>
