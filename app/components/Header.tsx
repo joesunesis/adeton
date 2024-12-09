@@ -23,12 +23,11 @@ const Header = () => {
   };
 
   return (
-    <header className="shadow-lg border-t border-gray-300 pt-2 px-4 flex justify-between items-center w-full top-0 z-50">
-      <nav className="stcky z-[100] w-full bg-white/75 backdrop-blur-lg transition-all">
+    <header className="shadow-xl p-4">
+      <nav className="stcky w-full backdrop-blur-lg transition-all">
         <MaxWidthWrapper>
-          <div className="flex items-center justify-between border-zinc-200">
-            {/* Logo */}
-            <Link href='/' className='flex z-40 text-2xl font-semibold'>
+          <div className="flex items-center justify-between">
+            <Link href='/' className='text-2xl font-semibold'>
               Yeton
             </Link>
             <div className="h-full flex items-center space-x-4 mb-1">
