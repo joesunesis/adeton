@@ -1,4 +1,4 @@
-import { Menu, CircleDot, User, Home, Layers3 } from 'lucide-react';
+import { Menu, CircleDot, User, Home, Layers3, ShoppingBag, ShoppingCart } from 'lucide-react';
 import Link from 'next/link';
 
 export default function FixedNavigation() {
