@@ -9,11 +9,12 @@ export default function SearchPage() {
   const [items, setItems] = useState<Item[] | null>(null);
   const [searchResults, setSearchResults] = useState<Item[] | null>(null);
 
+  // Fetch data once on component mount
   useEffect(() => {
     const fetchData = async () => {
       const data = await getData("items");
       setItems(data);
-      error && console.error("Error fetching all items: ", error);
+      if (error) console.error("Error fetching all items: ", error);
     };
 
     fetchData();
