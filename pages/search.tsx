@@ -22,13 +22,18 @@ export default function SearchPage() {
   }, [getData]);
 
   const keydown = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter") handleSearch(e);
+    if (e.key === "Enter") return handleSearch(e);
   };
 
   const handleSearch = (e: React.FormEvent | React.KeyboardEvent) => {
     e.preventDefault();
+    // console.log('searchResults: ',searchResults, ' searchValue: ', searchValue), items;
+    if (!searchValue) return "<h1 className='bg-white'> No Items found </h1>";
     if (items) {
       const results = items.filter((i) =>
+        i.brand.toLowerCase().includes(searchValue.toLowerCase()) ||
+        i.model.toLowerCase().includes(searchValue.toLowerCase()) ||
+        i.condition.toLowerCase().includes(searchValue.toLowerCase()) ||
         i.name.toLowerCase().includes(searchValue.toLowerCase())
       );
       setSearchResults(results);
@@ -58,7 +63,7 @@ export default function SearchPage() {
       </div>
 
       {/* Search Results */}
-      <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="mt-4 grid grid-cols-2 gap-4">
         {searchResults?.map((item) => (
           <ItemCard key={item.itemId} item={item} />
         ))}
