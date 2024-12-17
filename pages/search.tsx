@@ -11,7 +11,6 @@ export default function SearchPage() {
   const [searchValue, setSearchValue] = useState('');
   const router = useRouter();
 
-  // Fetch data once on component mount
   useEffect(() => {
     const fetchData = async () => {
       const data = await getData("items");
@@ -22,13 +21,12 @@ export default function SearchPage() {
     fetchData();
   }, [getData]);
 
-  // Handle search logic
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setSearchValue(value);
 
     if (!value) {
-      setSearchResults(null); // Reset results if input is empty
+      setSearchResults(null);
       return;
     }
 
@@ -45,7 +43,6 @@ export default function SearchPage() {
 
   return (
     <div>
-      {/* Header */}
       <div className="flex items-center justify-around mb-4">
         <button onClick={() => router.back()} className="text-blue-500 bg-[#2c2674] rounded-2xl p-4">
           <span className="hidden md:block">←</span> Back
@@ -55,12 +52,11 @@ export default function SearchPage() {
           type="text"
           placeholder="Teams/Players, Leagues"
           value={searchValue}
-          onChange={handleSearch} // Call the handler
+          onChange={handleSearch}
           className="w-9/12 md:w-full bg-[#2c2674] p-4 rounded-lg outline-none text-white placeholder-gray-500"
         />
       </div>
 
-      {/* Search Results */}
       <div className="mt-4 grid grid-cols-2 gap-4">
         {searchResults && searchResults.length > 0 ? (
           searchResults.map((item) => (
