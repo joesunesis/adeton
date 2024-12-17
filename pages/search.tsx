@@ -43,7 +43,8 @@ export default function SearchPage() {
 
   return (
     <div>
-      <div className="flex items-center justify-around mb-4">
+      {/* Header */}
+      <div className="flex items-center space-x-4 mb-4">
         <button onClick={() => router.back()} className="text-blue-500 bg-[#2c2674] rounded-2xl p-4">
           <span className="hidden md:block">←</span> Back
         </button>
@@ -57,14 +58,11 @@ export default function SearchPage() {
         />
       </div>
 
-      <div className="mt-4 grid grid-cols-2 gap-4">
-        {searchResults && searchResults.length > 0 ? (
-          searchResults.map((item) => (
-            <ItemCard key={item.itemId} item={item} />
-          ))
-        ) : (
-          <h1 className="text-white text-center col-span-2">No items found</h1>
-        )}
+      {/* Search Results */}
+      <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4">
+        {searchResults?.map((item) => (
+          <ItemCard key={item.itemId} item={item} />
+        ))}
       </div>
     </div>
   );
