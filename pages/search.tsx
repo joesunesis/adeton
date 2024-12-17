@@ -40,15 +40,15 @@ export default function SearchPage() {
   };
 
   return (
-    <>
-      <div className="flex items-center m-4">
+    <div className="p-4">
+      <div className="flex items-center">
         <input
           autoFocus
           type="text"
           placeholder="Search Items..."
           value={searchValue}
           onChange={handleSearch}
-          className="w-full bg-[#2c2674] p-4 rounded-lg outline-none text-white placeholder-gray-500"
+          className="w-full bg-green-100 p-4 rounded-lg outline-1 placeholder-gray-500"
         />
       </div>
 
@@ -57,6 +57,6 @@ export default function SearchPage() {
           <ItemCard key={item.itemId} item={item} />
         ))}
       </div>
-    </>
+    </div>
   );
 }
