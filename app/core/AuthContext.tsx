@@ -64,13 +64,10 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
         body: JSON.stringify({ phone: user?.phone }), // Use user phone
         headers: { 'Content-Type': 'application/json' }
       });
-      if (fetchData) {
-        removeUser();
-        removeToken();
-        removeRedirect();
-      } else {
-        throw new Error("Logout failed");
-      }
+      removeUser();
+      removeRedirect();
+      removeToken();
+      if (!fetchData) throw new Error("Logout failed");
     } catch (err) {
       console.error("Logout failed:", err);
     }

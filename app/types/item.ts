@@ -1,7 +1,9 @@
+import { Category } from "./category"
+
 export type Item = { 
   itemId: string, 
   name: string, 
-  category: object, 
+  category: Category, 
   brand: string, 
   condition: string, 
   model: string, 
