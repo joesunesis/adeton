@@ -11,7 +11,7 @@ export default function Category() {
   const [items, fetchItems] = useState<Item[] | null>(null);
   const router = useRouter();
   const { category } = router.query;
-
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
