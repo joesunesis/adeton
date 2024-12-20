@@ -7,7 +7,7 @@ interface UseFetch {
 }
 
 export default function UseFetch(): UseFetch {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<any>(null);
 
   const getData = useCallback(async (url: string, options?: object) => {

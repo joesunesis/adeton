@@ -3,7 +3,7 @@ import { ghanaRegions } from './RegionsDeata';
 import UseFetch from '../core/Fetch';
 
 interface AddressProps {
-  user: string | null;
+  user: string | null | undefined;
   updateAddress: (address: {}) => Promise<void>;
 }
 
@@ -25,8 +25,9 @@ const Address = ({ user, updateAddress }: AddressProps) => {
     const { region, city, district } = address;
     setEditingAddress(!isEditingAddress);
 
-    // Check if region or city is empty
-    if (!region || !city || !district) {
+    console.log(address);
+    
+    if (region == '' || city == '') {
       console.warn("Both Region and City must be selected.");
       return;
     }
@@ -85,7 +86,7 @@ const Address = ({ user, updateAddress }: AddressProps) => {
               </div>
             )}
 
-            {/* District Select (only for cities with districts) */}
+            {/* District Select (only for cities with districts)
             {address?.city && currentCity?.districts && (
               <div className="flex flex-col">
                 <label htmlFor="district" className="mb-2 text-sm font-medium text-white">
@@ -105,21 +106,21 @@ const Address = ({ user, updateAddress }: AddressProps) => {
                   ))}
                 </select>
               </div>
-            )}
+            )} */}
           </div>
         )}
 
-        {/* Selected Location Display */}
+        {error ? <h2>Add Address</h2> :
         <div className="mt-4 p-4 bg-gray-50 rounded-md">
           <h3 className="text-sm font-medium text-gray-700"><strong>Region</strong> : {userAdd}</h3>
           <h3 className="text-sm font-medium text-gray-700"><strong>City</strong> : {userAdd}</h3>
-        </div>
-        {<button
+        </div>}
+        <button
           onClick={() => handleAddress()}
           className="w-full mt-4 bg-blue-500 hover:bg-blue-600 text-white py-2 rounded font-semibold transition duration-200"
         >
           {isEditingAddress ? 'Save' : 'Edit'} Address
-        </button>}
+        </button>
       </div>
     </div>
   );

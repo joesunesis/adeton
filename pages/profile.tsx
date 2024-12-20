@@ -1,9 +1,8 @@
-// src/pages/profile.tsx
 import { User } from '@/app/types/user';
 import { useAuth } from '@/app/core/AuthContext';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { Address, UserDetails } from '@/app/components';
+import { Address, UserDetails, Spinner } from '@/app/components';
 import UseFetch from '@/app/core/Fetch';
 
 export default function Profile() {
@@ -12,7 +11,7 @@ export default function Profile() {
   const [storedUser, setUser] = useState<User | null>(null);
   const [updatedUser, setUpdatedUser] = useState<User | null>(null);
   const router = useRouter();
-  
+
   useEffect(() => {
     setUser(user || storedUser);
     setUpdatedUser(user || storedUser);
@@ -38,7 +37,6 @@ export default function Profile() {
     }
   };
 
-  // Handler for updating the address request
   const updateAddress = async (address: {}) => {
     const response = await getData('/address', {
       method: 'POST',
@@ -46,20 +44,19 @@ export default function Profile() {
       headers: { 'Content-Type': 'application/json' },
     });
 
-    if (!response) {
+    if (error) {
+      alert("Could not save address");
       console.error("Could not save address");
     }
   };
 
-  return (
+  return loading ? (
+    <Spinner />
+  ) : (
     <div className="p-6 max-w-lg mx-auto bg-[#1A173B] text-white rounded-lg shadow-lg">
       <h2 className="text-2xl font-bold mb-6 text-center">Profile</h2>
-
-      {/* User Details Section */}
       <UserDetails user={updatedUser} updateUserDetails={updateUserDetails} />
-
-      {/* Address Section */}
-        <Address user={user && user.userId} updateAddress={updateAddress} />
+      <Address user={user?.userId} updateAddress={updateAddress} />
     </div>
   );
 }
