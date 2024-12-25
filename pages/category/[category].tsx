@@ -1,4 +1,3 @@
-// pages/category/[category].tsx
 import { useRouter } from 'next/router';
 import UseFetch from '@/app/core/Fetch';
 import { useState, useEffect } from 'react';
