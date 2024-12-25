@@ -19,7 +19,7 @@ const Header = () => {
             <div className="h-full flex items-center mb-1 cursor-pointer space-x-4">
                 <span className="text-white text-2xl px-5r" onClick={() => router.push('/search')}>🔍</span>
               <div className='flex items-center justify-center space-x-4'>
-                {user ? (
+                {user && (
                   <div className="relative inline-block text-left" onClick={() => router.push('/settings')}>
                     {user?.imageUrl ? (
                       <img
@@ -36,14 +36,8 @@ const Header = () => {
                       </div>
                     )}
                   </div>
-                ) : (
-                  <div onClick={() => router.push('/signin')}>
-                    {/* <button className="border border-[#90E401] text-[#90E401] px-4 py-1 rounded hover:bg-[#90E401] hover:text-black" onClick={() => setRedirect(router.pathname)}>Log in</button> */}
-                  </div>
                 )}
-                <div className="text-red-500" onClick={() => router.push('/cart')}>
-                  🛒
-                </div>
+                <span onClick={() => router.push('/cart')}> 🛒 </span>
               </div>
             </div>
           </div>
