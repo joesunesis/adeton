@@ -51,7 +51,7 @@ export default function ResetPassword() {
   }
 
   return (
-    <div className="bg-green-50 min-h-screen flex flex-col justify-center items-center p-4">
+    <div className="flex flex-col justify-center items-center p-4">
       {/* Header */}
       <div className="w-full max-w-md">
         <button onClick={() => history.back()} className="text-green-600 text-sm mb-6">

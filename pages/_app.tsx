@@ -13,7 +13,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         {/* Force mobile width */}
         <div className="w-full max-w-sm lg:max-w-tm flex flex-col shadow-md h-full">
           <DynamicHeader />
-          <main className="flex-grow">
+          <main className="h-screen">
             <Component {...pageProps} />
           </main>
           <FixedNavigation />

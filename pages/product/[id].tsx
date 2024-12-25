@@ -24,7 +24,7 @@ export default function ProductDetail() {
   if (!item) return "Item not found";
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="flex flex-col">
       <button onClick={() => router.back()} className="mb-4 text-blue-500">
         ← Back
       </button>

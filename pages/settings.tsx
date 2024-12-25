@@ -12,7 +12,7 @@ export default function Settings() {
   }, [router]);
 
   return (
-    <div className="min-h-screen text-gray-900 p-4">
+    <div className="p-4">
       {!user &&
         <div className="bg-white rounded-lg p-4 shadow-md mb-6">
           <h2 className="font-bold text-lg">Unlock everything there is to offer</h2>

@@ -4,7 +4,7 @@ import ProductList from "./products";
 
 export default function Home() {
   return (
-    <MaxWidthWrapper className='h-screen p-4'>
+    <MaxWidthWrapper className='p-4'>
         <section className="mb-6">
           <h2 className="text-lg font-semibold mb-2">Shop By Category</h2>
           <div className="flex space-x-4 overflow-x-scroll">

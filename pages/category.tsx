@@ -19,7 +19,7 @@ export default function Categories() {
   }, []);
 
   return (
-    <MaxWidthWrapper className='h-screen p-4'>
+    <MaxWidthWrapper className='p-4'>
       <h2 className="text-lg font-bold mb-4">Categories</h2>
       <ul>
         {categories.map((category) => (
