@@ -56,7 +56,7 @@ export default function ResetPassword() {
       <div className="bg-white rounded-lg shadow-md p-6 w-full max-w-md">
         {step === 1 && (
           <form onSubmit={handleRequestOtp} className="space-y-4">
-            <h1 className="text-xl font-bold text-green-700 mb-4 text-center">
+            <h1 className="text-lg font-bold mb-4 text-center">
               Reset Your Password
             </h1>
             <p className="text-gray-500 text-sm mb-6 text-center">
