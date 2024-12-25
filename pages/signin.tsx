@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { useAuth } from '../app/core/AuthContext';
+import { MaxWidthWrapper } from '@/app/components';
 
 export default function Login() {
   const { token, authenticate, loading, redirect } = useAuth();
@@ -22,7 +23,7 @@ export default function Login() {
   if (loading) return <div>Loading ..... </div>
 
   return (
-    <div className="flex items-center justify-center h-screen">
+    <MaxWidthWrapper className='h-screen p-4 flex justify-center items-start sm:items-center'>
       <form onSubmit={handleSubmit} className="w-80 p-6 rounded-lg shadow-lg bg-gray-50">
         <h1 className="text-2xl font-bold mb-6 text-center">Welcome Back</h1>
         <input
@@ -58,6 +59,6 @@ export default function Login() {
           </Link>
         </p>
       </form>
-    </div>
+    </MaxWidthWrapper>
   );
 };

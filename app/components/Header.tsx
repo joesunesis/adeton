@@ -9,7 +9,7 @@ const Header = () => {
   function getInitials(userName: string) { return userName.split(' ').map(name => name[0].toUpperCase()).join(''); }
 
   return (
-    <header className="shadow-xl p-4 rounded-b-sm">
+    <header className="shadow-xl px-4 pt-2">
       <nav className="stcky w-full backdrop-blur-lg transition-all">
         <MaxWidthWrapper>
           <div className="flex items-center justify-between">

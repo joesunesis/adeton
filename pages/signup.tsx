@@ -2,6 +2,7 @@ import { useAuth } from '@/app/core/AuthContext';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import Link from 'next/link';
+import { MaxWidthWrapper } from '@/app/components';
 
 export default function Signup() {
   const { token, register, loading, redirect } = useAuth();
@@ -25,9 +26,9 @@ export default function Signup() {
   if (loading) return <div>Loading ..... </div>
 
   return (
-    <div className="flex items-center justify-center h-screen bg-white">
+    <MaxWidthWrapper className='h-screen p-4 flex justify-center items-start sm:items-center'>
       <form onSubmit={handleSubmit} className="w-80 p-6 rounded-lg shadow-lg bg-gray-50">
-        <h1 className="text-2xl font-bold mb-6 text-center">Create your new account</h1>
+        <h1 className="text-2xl font-bold mb-6 text-center">Create an account</h1>
         <input
           type="text"
           placeholder="Full Name"
@@ -100,13 +101,13 @@ export default function Signup() {
             <span className="text-green-500 underline">Sign up</span>
           </Link>
         </p>
-        <p className="text-center text-gray-500 mt-4">Or continue with</p>
+        {/* <p className="text-center text-gray-500 mt-4">Or continue with</p>
         <div className="flex justify-around mt-4">
           <button className="bg-blue-600 text-white py-2 px-4 rounded-lg">Facebook</button>
           <button className="bg-red-600 text-white py-2 px-4 rounded-lg">Google</button>
           <button className="bg-black text-white py-2 px-4 rounded-lg">Apple</button>
-        </div>
+        </div> */}
       </form>
-    </div>
+    </MaxWidthWrapper>
   );
 };

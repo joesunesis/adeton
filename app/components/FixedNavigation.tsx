@@ -6,7 +6,7 @@ export default function FixedNavigation() {
   const router = useRouter();
   return (
     <nav className="fixed bottom-5 left-1/2 transform -translate-x-1/2 bg-white/90 shadow-lg border border-gray-300 w-full max-w-xs rounded-3xl">
-      <div className="flex justify-around items-center py-2 cursor-pointer">
+      <div className="flex justify-around items-center py-[2px] cursor-pointer">
         <div onClick={() => router.push('/')} className="text-gray-600 hover:text-green-500 flex flex-col items-center">
           <HomeIcon />
           <span className="text-md">Home</span>

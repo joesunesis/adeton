@@ -1,7 +1,7 @@
 import '../app/globals.css';
 import dynamic from 'next/dynamic';
 import type { AppProps } from 'next/app';
-import { FixedNavigation } from '../app/components/index';
+import { FixedNavigation, MaxWidthWrapper } from '../app/components/index';
 import AuthProvider from '@/app/core/AuthContext';
 
 const DynamicHeader = dynamic(() => import('@/app/components/Header'), { ssr: false });
@@ -9,17 +9,17 @@ const DynamicHeader = dynamic(() => import('@/app/components/Header'), { ssr: fa
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <AuthProvider>
-      {/* Wrapper for consistent mobile view */}
-      <div className="h-screen flex flex-col items-center bg-gray-100">
+      <MaxWidthWrapper className="flex flex-col items-center bg-gray-100">
         {/* Force mobile width */}
-        <div className="w-full max-w-sm flex flex-col shadow-md h-full">
+        <div className="w-full max-w-md lg:max-w-tm flex flex-col shadow-md h-full">
           <DynamicHeader />
           <main className="flex-grow">
             <Component {...pageProps} />
           </main>
           <FixedNavigation />
         </div>
-      </div>
+
+      </MaxWidthWrapper>
     </AuthProvider>
   );
 }

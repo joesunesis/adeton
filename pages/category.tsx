@@ -1,3 +1,4 @@
+import { MaxWidthWrapper } from '@/app/components';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 
@@ -18,8 +19,8 @@ export default function Categories() {
   }, []);
 
   return (
-    <div className="p-4">
-      <h2 className="text-xl font-bold mb-4">Categories</h2>
+    <MaxWidthWrapper className='h-screen p-4'>
+      <h2 className="text-lg font-bold mb-4">Categories</h2>
       <ul>
         {categories.map((category) => (
           <li key={category.id} className="mb-4">
@@ -33,6 +34,6 @@ export default function Categories() {
           </li>
         ))}
       </ul>
-    </div>
+    </MaxWidthWrapper>
   );
 };

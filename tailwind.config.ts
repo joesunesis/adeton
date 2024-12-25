@@ -57,10 +57,11 @@ const config: Config = {
   			sm: 'calc(var(--radius) - 4px)'
   		},
 			maxWidth: {
-				xs: '425px',
-				sm: '500px',
-				md: '699px',
-				lg: '768px'
+				xs: '320px',
+				sm: '375px',
+				md: '425px',
+				tm: '768px',
+				lg: '1024px'
 			}
   	}
   },

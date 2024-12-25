@@ -32,7 +32,7 @@ export default function Order() {
 
   return (
     <div className="p-4">
-      <h2 className="text-xl font-bold mb-4">Your Cart</h2>
+      <h2 className="text-lg font-bold mb-4">Your Cart</h2>
       <ul>
         {cartItems.map((item) => (
           <li key={item.id} className="mb-4">
