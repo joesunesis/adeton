@@ -11,7 +11,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     <AuthProvider>
       <MaxWidthWrapper className="flex flex-col items-center bg-gray-100">
         {/* Force mobile width */}
-        <div className="w-full max-w-md lg:max-w-tm flex flex-col shadow-md h-full">
+        <div className="w-full max-w-sm lg:max-w-tm flex flex-col shadow-md h-full">
           <DynamicHeader />
           <main className="flex-grow">
             <Component {...pageProps} />
