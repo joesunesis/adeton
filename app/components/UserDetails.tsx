@@ -7,46 +7,48 @@ interface UserDetailsProps {
 }
 
 const UserDetails = ({ user, updateUserDetails }: UserDetailsProps) => {
-  const [updatedUser, setUpdatedUser] = useState<User | null>(null);
+  const [updatedUser, setUpdatedUser] = useState<User | null>(user);
   const [isEditingDetails, setEditingDetails] = useState(false);
 
   const handleUserDetails = () => {
     setEditingDetails(!isEditingDetails);
-    if (!updatedUser) return;
+    if (updatedUser) {
+      console.log(updatedUser, isEditingDetails);
     updateUserDetails(updatedUser);
     setUpdatedUser(null);
+    }
   }
-
+  
   return (
-    <div className="bg-[#282450] p-4 shadow rounded-lg mb-6">
+    <div className="p-4 shadow rounded-lg mb-6">
       <h3 className="text-lg font-semibold mb-4">Personal Details</h3>
 
       {isEditingDetails ? (
-        <div className="space-y-4">
-          <div>
-            <label className="block text-gray-300 mb-1">Username:</label>
-            <input
-              type="text"
-              value={updatedUser?.name || ''}
-              onChange={(e) =>
-                setUpdatedUser((prev) => ({ ...prev, name: e.target.value } as User))
-              }
-              className="w-full p-2 rounded bg-[#1A173B] border border-gray-500"
-            />
+        <div className="p-6 rounded-lg shadow-md">
+            <div className="flex justify-center mb-4">
+              <img src="/images/profile-picture.jpg" alt="Profile" className="w-24 h-24 rounded-full border-4 border-blue-500" />
+            </div>
+            <div className="space-y-4">
+              <input
+                type="text"
+                placeholder="Name"
+                value={updatedUser?.name || user?.name}
+                onChange={(e) =>
+                  setUpdatedUser((prev) => ({ ...prev, name: e.target.value } as User))
+                }
+                className="w-full p-3 rounded-md outline-none text-black"
+              />
+              <input
+                type="text"
+                placeholder="Phone"
+                value={user?.phone || user?.phone}
+                onChange={(e) =>
+                  setUpdatedUser((prev) => ({ ...prev, phone: e.target.value } as User))
+                }
+                className="w-full p-3 rounded-md outline-none text-black"
+              />
+            </div>
           </div>
-
-          <div>
-            <label className="block text-gray-300 mb-1">Phone:</label>
-            <input
-              type="text"
-              value={updatedUser?.phone || ''}
-              onChange={(e) =>
-                setUpdatedUser((prev) => ({ ...prev, phone: e.target.value } as User))
-              }
-              className="w-full p-2 rounded bg-[#1A173B] border border-gray-500"
-            />
-          </div>
-        </div>
       ) :
         <div>
           <p className="mb-2">Username: {user?.name || 'N/A'}</p>
@@ -56,9 +58,9 @@ const UserDetails = ({ user, updateUserDetails }: UserDetailsProps) => {
       <div>
         <button
           onClick={() => handleUserDetails()}
-          className="w-full mt-4 bg-blue-500 hover:bg-blue-600 text-white py-2 rounded font-semibold transition duration-200"
+          className="w-full bg-blue-500 text-white py-3 rounded-lg font-semibold mt-6"
         >
-          {isEditingDetails ? 'Save' : 'Edit'} Details
+          {isEditingDetails ? 'Save Changes' : 'Edit Details'} 
         </button>
       </div>
     </div>

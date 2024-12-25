@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 
 export default function Signup() {
-  const { token, register, loading, redirect, setRedirect } = useAuth();
+  const { token, register, loading, redirect } = useAuth();
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
@@ -19,7 +19,6 @@ export default function Signup() {
 
     await register(fullName, email, phone, gender, password);
     router.push(redirect);
-    setRedirect('/');
   };
 
   token && router.push(redirect);

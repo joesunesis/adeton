@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useAuth } from '../app/core/AuthContext';
 
 export default function Login() {
-  const { token, authenticate, loading, redirect, setRedirect } = useAuth();
+  const { token, authenticate, loading, redirect } = useAuth();
   const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
   const router = useRouter();
@@ -16,7 +16,6 @@ export default function Login() {
     
     await authenticate(phone, password);
     router.push(redirect);
-    setRedirect('/');
   };
 
   token && router.push(redirect);
@@ -55,7 +54,7 @@ export default function Login() {
         <p className="mt-4 text-center">
           Don't have an account?{' '}
           <Link href="/signup">
-            <span className="text-green-500 underline">Sign up</span>
+            <span className="text-green-500 underline">Register Now!</span>
           </Link>
         </p>
       </form>

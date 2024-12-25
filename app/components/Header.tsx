@@ -1,61 +1,50 @@
-import Link from 'next/link'
-import { useEffect, useState } from 'react';
 import MaxWidthWrapper from './MaxWidthWrapper';
 import { useAuth } from '../core/AuthContext';
-import { User } from '../types/user';
 import { useRouter } from 'next/router';
-import { useLocalStorage } from '../core/useLocalStorage';
 
 const Header = () => {
-  const { user, logout, setRedirect } = useAuth();
-  const [storedUser, setUser] = useState<User | null>(null);
+  const { user, setRedirect } = useAuth();
   const router = useRouter();
-  
-  useEffect(() => {
-    setUser(user ? user : storedUser);
-  }, [user]);
 
-  const handleLogout = (e: React.FormEvent) => {
-    e.preventDefault();
-    setUser(null);
-    user?.phone && logout();
-    router.push('/');
-  };
+  function getInitials(userName: string) { return userName.split(' ').map(name => name[0].toUpperCase()).join(''); }
 
   return (
-    <header className="shadow-xl p-4">
+    <header className="shadow-xl p-4 rounded-b-sm">
       <nav className="stcky w-full backdrop-blur-lg transition-all">
         <MaxWidthWrapper>
           <div className="flex items-center justify-between">
-            <Link href='/' className='text-2xl font-semibold'>
+            <div className='text-2xl font-semibold cursor-pointer' onClick={() => router.push('/')}>
               Yeton
-            </Link>
-            <div className="h-full flex items-center space-x-4 mb-1">
-              <Link href="/search">
-                <button>
-                  <span className="text-white text-2xl px-5">🔍</span>
-                </button>
-              </Link>
-              {storedUser ? (
-                <div>
-                  <span>{user?.name || 'User'} ✨ </span>
-                  <Link href="/order" className="text-red-500">
-                    🛒 Cart
-                  </Link>
-                  <button onClick={handleLogout} className="ml-4 bg-red-500 text-white p-2 rounded-lg">
-                    Logout
-                  </button>
+            </div>
+            <div className="h-full flex items-center mb-1 cursor-pointer space-x-4">
+                <span className="text-white text-2xl px-5r" onClick={() => router.push('/search')}>🔍</span>
+              <div className='flex items-center justify-center space-x-4'>
+                {user ? (
+                  <div className="relative inline-block text-left" onClick={() => router.push('/settings')}>
+                    {user?.imageUrl ? (
+                      <img
+                        id="avatarButton"
+                        className="w-10 h-10 rounded-full"
+                        src={user.imageUrl}
+                        alt="User dropdown"
+                      />
+                    ) : (
+                      <div className="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-gray-300 rounded-full dark:bg-gray-600">
+                        <span className="font-medium text-gray-600 dark:text-gray-300">
+                          {getInitials(user?.name)}
+                        </span>
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  <div onClick={() => router.push('/signin')}>
+                    {/* <button className="border border-[#90E401] text-[#90E401] px-4 py-1 rounded hover:bg-[#90E401] hover:text-black" onClick={() => setRedirect(router.pathname)}>Log in</button> */}
+                  </div>
+                )}
+                <div className="text-red-500" onClick={() => router.push('/cart')}>
+                  🛒
                 </div>
-              ) : (
-                <div className="flex space-x-4">
-                  <Link href="/signup">
-                      <button className="border border-[#90E401] bg-[#90E401] text-black px-4 py-1 rounded hover:bg-inherit">Join Now</button>
-                  </Link>
-                  <Link href="/signin">
-                      <button className="border border-[#90E401] text-[#90E401] px-4 py-1 rounded hover:bg-[#90E401] hover:text-black" onClick={() => setRedirect(router.pathname)}>Sign in</button>
-                  </Link>
-                </div>
-              )}
+              </div>
             </div>
           </div>
         </MaxWidthWrapper>

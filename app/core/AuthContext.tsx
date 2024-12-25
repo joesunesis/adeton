@@ -1,4 +1,4 @@
-import { createContext, useState, useContext, ReactNode } from 'react';
+import { createContext, useContext, ReactNode } from 'react';
 import UseFetch from './Fetch';
 import { useLocalStorage } from './useLocalStorage';
 import { User } from '../types/user';

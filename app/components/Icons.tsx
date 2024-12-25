@@ -19,4 +19,56 @@ const Icons = {
   )
 }
 
-export default Icons;
+const SettingsIcon = () => <span>⚙️</span>;
+const OrderIcon = () => <span>📄</span>;
+const NotificationIcon = () => <span>🔔</span>;
+const HomeIcon = () => <span>🏠</span>;
+const BlitzBuyIcon = () => <span>⚡</span>;
+const CartIcon = () => <span>🛒</span>;
+const BrandsIcon = () => <span>🏷️</span>;
+const RecentlyViewedIcon = () => <span>⏱️</span>;
+const CashIcon = () => <span>💰</span>;
+const RewardsIcon = () => <span>🏆</span>;
+const SupportIcon = () => <span>📞</span>;
+const LogoutIcon = () => <span>🚪</span>;
+const EditProfileIcon = () => <span>🖊️</span>;
+const SecurityIcon = () => <span>🔒</span>;
+const PrivacyIcon = () => <span>🔏</span>;
+const HelpIcon = () => <span>💬</span>;
+const TermsIcon = () => <span>📃</span>;
+const ReportIcon = () => <span>🚨</span>;
+const AddAccountIcon = () => <span>➕</span>;
+const LogoutIcon2 = () => <span>⏻</span>;
+const AddressIcon = () => <span>📍</span>;
+const UserProfileIcon = () => <span>👤</span>;
+const CategoriesIcon = () => <span>🗂️</span>;
+const OrdersIcon = () => <span>📦</span>;
+const ShoppingBagIcon = () => <span>🛍️</span>;
+
+export { Icons, 
+  SettingsIcon, 
+  OrderIcon, 
+  NotificationIcon, 
+  HomeIcon, 
+  BlitzBuyIcon, 
+  CartIcon, 
+  BrandsIcon, 
+  RecentlyViewedIcon, 
+  CashIcon, 
+  RewardsIcon, 
+  SupportIcon, 
+  LogoutIcon, 
+  LogoutIcon2,
+  AddAccountIcon,
+  ReportIcon,
+  TermsIcon,
+  HelpIcon,
+  PrivacyIcon,
+  SecurityIcon,
+  EditProfileIcon,
+  AddressIcon,
+  UserProfileIcon,
+  CategoriesIcon,
+  OrdersIcon,
+  ShoppingBagIcon
+};

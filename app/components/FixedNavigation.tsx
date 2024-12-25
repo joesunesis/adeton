@@ -1,26 +1,28 @@
-import { Menu, CircleDot, User, Home, Layers3, ShoppingBag, ShoppingCart } from 'lucide-react';
 import Link from 'next/link';
+import { CategoriesIcon, HomeIcon, ShoppingBagIcon, UserProfileIcon } from './Icons';
+import { useRouter } from 'next/router';
 
 export default function FixedNavigation() {
+  const router = useRouter();
   return (
     <nav className="fixed bottom-5 left-1/2 transform -translate-x-1/2 bg-white/90 shadow-lg border border-gray-300 w-full max-w-xs rounded-3xl">
-      <div className="flex justify-around items-center py-2">
-        <Link href="/" className="text-gray-600 hover:text-green-500 flex flex-col items-center">
-          <span>🏠</span>
-            <span className="text-md">Home</span>
-        </Link>
-        <Link href="/category" className="text-gray-600 hover:text-green-500 flex flex-col items-center">
-          <span>📂</span>
-            <span className="text-md">Categories</span>
-        </Link>
-        <Link href="/order" className="text-gray-600 hover:text-green-500 flex flex-col items-center">
-            <span>🛒</span>
-            <span className="text-md">Orders</span>
-        </Link>
-        <Link href="/profile" className="text-gray-600 hover:text-green-500 flex flex-col items-center">
-            <span>👤</span>
-            <span className="text-md">Account</span>
-        </Link>
+      <div className="flex justify-around items-center py-2 cursor-pointer">
+        <div onClick={() => router.push('/')} className="text-gray-600 hover:text-green-500 flex flex-col items-center">
+          <HomeIcon />
+          <span className="text-md">Home</span>
+        </div>
+        <div onClick={() => router.push('category')} className="text-gray-600 hover:text-green-500 flex flex-col items-center">
+          <CategoriesIcon />
+          <span className="text-md">Categories</span>
+        </div>
+        <div onClick={() => router.push('order')} className="text-gray-600 hover:text-green-500 flex flex-col items-center">
+          <ShoppingBagIcon />
+          <span className="text-md">Orders</span>
+        </div>
+        <div onClick={() => router.push('settings')} className="text-gray-600 hover:text-green-500 flex flex-col items-center">
+          <UserProfileIcon />
+          <span className="text-md">Account</span>
+        </div>
       </div>
     </nav>
   );
