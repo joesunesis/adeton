@@ -28,9 +28,6 @@ export default function Category() {
 
   return (
     <div className="p-4">
-      <button onClick={() => router.back()} className="mb-4 text-blue-500">
-        ← Back
-      </button>
       <div className="mt-4 grid grid-cols-2 gap-4">
         {filteredItems?.map((item) => (
           <ItemCard item={item} key={item.itemId} />
