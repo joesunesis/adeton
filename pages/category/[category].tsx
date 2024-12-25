@@ -9,7 +9,7 @@ export default function Category() {
   const { getData, error } = UseFetch();
   const [items, fetchItems] = useState<Item[] | null>(null);
   const router = useRouter();
-  const { id } = router.query;
+  const { category } = router.query;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -23,7 +23,7 @@ export default function Category() {
   }, [getData]);
 
   const filteredItems = items?.filter((item) => {
-    return item.category?.categoryId === id;
+    return item.category?.categoryId === category;
   });
 
   return (
@@ -32,7 +32,7 @@ export default function Category() {
         ← Back
       </button>
       <div className="mt-4 grid grid-cols-2 gap-4">
-        {items?.map((item) => (
+        {filteredItems?.map((item) => (
           <ItemCard item={item} key={item.itemId} />
         ))}
       </div>
