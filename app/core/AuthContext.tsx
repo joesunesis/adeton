@@ -7,7 +7,7 @@ interface AuthContextProps {
   user: User | null;
   token: string | null;
   authenticate: (phone: string, password: string) => Promise<void>;
-  register: (name: string, email: string, phone: string, gender: string, password: string, imageUrl?: string) => Promise<void>;
+  register: (name: string, phone: string, gender: string, password: string, imageUrl?: string) => Promise<void>;
   logout: () => Promise<void>;
   loading: boolean;
   error: any;
@@ -42,12 +42,12 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
     console.log(redirect);
 
   };
-
-  const register = async (name: string, email: string, phone: string, gender: string, password: string, imageUrl?: string) => {
+  
+  const register = async (name: string, phone: string, gender: string, password: string, imageUrl?: string) => {
     try {
       const fetchData = await getData('register', {
         method: 'POST',
-        body: JSON.stringify({ name, email, phone, imageUrl, password, gender }),
+        body: JSON.stringify({ name, phone, imageUrl, password, gender }),
         headers: { 'Content-Type': 'application/json' }
       });
       fetchData && setRedirect('/signin');

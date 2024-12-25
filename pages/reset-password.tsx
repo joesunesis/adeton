@@ -52,14 +52,6 @@ export default function ResetPassword() {
 
   return (
     <div className="flex flex-col justify-center items-center p-4">
-      {/* Header */}
-      <div className="w-full max-w-md">
-        <button onClick={() => history.back()} className="text-green-600 text-sm mb-6">
-          ← Back
-        </button>
-      </div>
-
-      {/* Card */}
       <div className="bg-white rounded-lg shadow-md p-6 w-full max-w-md">
         {step === 1 && (
           <form onSubmit={handleRequestOtp} className="space-y-4">

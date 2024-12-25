@@ -7,7 +7,6 @@ import { MaxWidthWrapper } from '@/app/components';
 export default function Signup() {
   const { token, register, loading, redirect } = useAuth();
   const [fullName, setFullName] = useState('');
-  const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [gender, setGender] = useState('');
   const [password, setPassword] = useState('');
@@ -15,10 +14,10 @@ export default function Signup() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (fullName == '' && email == '' && phone == '' && gender == '' && password == '')
+    if (fullName == '' && phone == '' && gender == '' && password == '')
       return alert('Incorrect Details!');
 
-    await register(fullName, email, phone, gender, password);
+    await register(fullName, phone, gender, password);
     router.push(redirect);
   };
 
@@ -34,13 +33,6 @@ export default function Signup() {
           placeholder="Full Name"
           value={fullName}
           onChange={(e) => setFullName(e.target.value)}
-          className="w-full p-2 mb-4 border border-gray-300 rounded-lg"
-        />
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
           className="w-full p-2 mb-4 border border-gray-300 rounded-lg"
         />
         <input
@@ -101,12 +93,6 @@ export default function Signup() {
             <span className="text-green-500 underline">Sign up</span>
           </Link>
         </p>
-        {/* <p className="text-center text-gray-500 mt-4">Or continue with</p>
-        <div className="flex justify-around mt-4">
-          <button className="bg-blue-600 text-white py-2 px-4 rounded-lg">Facebook</button>
-          <button className="bg-red-600 text-white py-2 px-4 rounded-lg">Google</button>
-          <button className="bg-black text-white py-2 px-4 rounded-lg">Apple</button>
-        </div> */}
       </form>
     </MaxWidthWrapper>
   );
