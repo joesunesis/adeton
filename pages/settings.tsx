@@ -7,8 +7,8 @@ export default function Settings() {
   const { user } = useAuth();
   const router = useRouter();
 
-  const handleClick = React.useCallback((path: string, url?: string) => {
-    return router.push(path, url);
+  const handleClick = React.useCallback((path: string) => {
+    return router.push(path);
   }, [router]);
 
   return (
@@ -30,21 +30,21 @@ export default function Settings() {
 
       <MenuSection title="Account">
         <MenuItem title="Profile" icon={UserProfileIcon} onclick={() => handleClick('/profile')} />
-        <MenuItem title="Security" icon={SettingsIcon} onclick={() => handleClick('/reset-password', 'security')} />
+        <MenuItem title="Security" icon={SettingsIcon} onclick={() => handleClick('/reset-password')} />
         <MenuItem title="Address" icon={AddAccountIcon} onclick={() => handleClick('/address')} />
         {/* <MenuItem title="Notifications" icon={NotificationIcon} /> */}
       </MenuSection>
 
       <MenuSection title="Shop">
         <MenuItem title="Cart" icon={CartIcon} onclick={() => handleClick('/cart')} />
-        {/* <MenuItem title="Recently Viewed" icon={RecentlyViewedIcon} onclick={() => handleClick('/search', 'recent')} /> */}
+        {/* <MenuItem title="Recently Viewed" icon={RecentlyViewedIcon} onclick={() => handleClick('/search')} /> */}
       </MenuSection>
 
       <MenuSection title="Support">
-        {/* <MenuItem title="Customer Support" icon={HelpIcon} onclick={() => handleClick('/faqs', 'support')} /> */}
+        {/* <MenuItem title="Customer Support" icon={HelpIcon} onclick={() => handleClick('/faqs')} /> */}
         <MenuItem title="Privacy" icon={PrivacyIcon} />
         <MenuItem title="Terms and Policies" icon={TermsIcon} />
-        {/* <MenuItem title="Report a Problem" icon={ReportIcon} onclick={() => handleClick('/contact-us', 'report')} /> */}
+        {/* <MenuItem title="Report a Problem" icon={ReportIcon} onclick={() => handleClick('/contact-us'} /> */}
       </MenuSection>
 
       {user &&
