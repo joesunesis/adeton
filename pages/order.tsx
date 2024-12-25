@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
 export default function Order() {
-  const { user, setRedirect } = useAuth();
+  const { user } = useAuth();
   const [cartItems, setCartItems] = useState([
     { id: 1, name: 'Product 1', price: '$10', quantity: 1 },
     { id: 2, name: 'Product 2', price: '$20', quantity: 2 },
@@ -13,15 +13,9 @@ export default function Order() {
   const router = useRouter();
 
   useEffect(() => {
+    !user && router.push('/signin')
     setUser(user || storedUser);
-  }, [user, storedUser]);
-
-  useEffect(() => {
-    if (!user && !storedUser) {
-      setRedirect(router.pathname);
-      router.push('/signin');
-    }
-  }, [user, storedUser, setRedirect, router]);
+  }, [user]);
 
   const totalAmount = cartItems.reduce((total, item) => total + parseFloat(item.price.slice(1)) * item.quantity, 0);
 

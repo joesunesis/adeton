@@ -9,15 +9,9 @@ const address = () => {
   const { getData, error, loading } = UseFetch();
   const [userAdd, setUserAdd] = useState<{ region: string, city: string }>();
   const router = useRouter();
-
-  useEffect(() => {
-    if (!user) {
-      setRedirect(router.pathname);
-      router.push('/signin');
-    }
-  }, [user]);
   
   useEffect(() => {
+    !user && router.push('/signin');
     const getAddress = async () => {
       const res = await getData(`/addresses/users/${user}`);
       if (error) {

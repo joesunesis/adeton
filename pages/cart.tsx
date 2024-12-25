@@ -17,10 +17,9 @@ export default function Orders() {
   const [storedUser, setUser] = useState<User | null>(null);
 
   useEffect(() => {
-    const storedUser = user;
-    setUser(storedUser ? storedUser : null);
-    !storedUser && router.push('/signin')
-  }, [user, router]);
+    !user && router.push('/signin')
+    setUser(user || storedUser);
+  }, [user]);
 
   // useEffect(() => {
   //   if (!user) {

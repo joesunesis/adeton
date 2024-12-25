@@ -1,13 +1,15 @@
 import { MaxWidthWrapper } from '@/app/components';
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
 export default function ResetPassword() {
   const [step, setStep] = useState(1);
-  const [mobileOrEmail, setMobileOrEmail] = useState('');
+  const [mobile1, setMobile1] = useState('');
   const [otp, setOtp] = useState('');
   const [newPassword, setNewPassword] = useState('');
+  const router = useRouter();
 
-  const OTP_VALIDITY_PERIOD = 300; // 300 seconds (5 min)
+  const OTP_VALIDITY_PERIOD = 100; // 300 seconds (5 min)
   const [timeLeft, setTimeLeft] = useState(OTP_VALIDITY_PERIOD);
   const [isExpired, setIsExpired] = useState(false);
 
@@ -16,21 +18,22 @@ export default function ResetPassword() {
       const timer = setTimeout(() => setTimeLeft(timeLeft - 1), 1000);
       return () => clearTimeout(timer); // Cleanup the timer
     } else {
-      setIsExpired(true); // Mark OTP as expired
+      setIsExpired(true);
     }
   }, [timeLeft]);
 
   const handleRequestOtp = (e: React.FormEvent) => {
     e.preventDefault();
     // Simulate OTP sent logic (Replace with API call)
-    alert(`OTP sent to ${mobileOrEmail}`);
+    alert(`OTP sent to ${mobile1}`);
     setStep(2);
   };
-
+  
   const handleVerifyOtp = (e: React.FormEvent) => {
     e.preventDefault();
     // Simulate OTP verification logic (Replace with API call)
-    if (otp === '123456') {
+    
+    if (otp === '1234') {
       alert('OTP verified successfully!');
       setStep(3);
     } else {
@@ -42,7 +45,7 @@ export default function ResetPassword() {
     e.preventDefault();
     // Simulate password reset logic (Replace with API call)
     alert('Password reset successful!');
-    setStep(1);
+    router.push('/signin');
   };
 
   const formatTime = (seconds: number) => {
@@ -60,17 +63,17 @@ export default function ResetPassword() {
               Reset Your Password
             </h1>
             <p className="text-gray-500 text-sm mb-6 text-center">
-              Enter your mobile number or email to receive an OTP for password reset.
+              Enter your mobile number to receive an OTP for password reset.
             </p>
 
             {/* Mobile/Email Input */}
             <input
               type="text"
-              id="mobileOrEmail"
-              value={mobileOrEmail}
-              onChange={(e) => setMobileOrEmail(e.target.value)}
+              id="mobile1"
+              value={mobile1}
+              onChange={(e) => setMobile1(e.target.value)}
               required
-              placeholder="Enter mobile number or email"
+              placeholder="Enter mobile number"
               className="w-full px-4 py-2 border rounded-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-green-500"
             />
 
@@ -86,7 +89,7 @@ export default function ResetPassword() {
 
         {step === 2 && (
           <form className="space-y-4">
-            <h1 className="text-lg font-bold text-green-700 mb-4 text-center">
+            <h1 className="text-lg font-bold mb-4 text-center">
               Verify OTP
             </h1>
             <p className="text-green-00 text-sm mb-6 text-center">
@@ -103,7 +106,7 @@ export default function ResetPassword() {
                 value={otp}
                 onChange={(e) => setOtp(e.target.value)}
                 required
-                placeholder="Enter the OTP sent to your mobile or email."
+                placeholder="Enter the OTP sent to your mobile."
                 className="w-full px-4 py-2 border rounded-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-green-500"
               />
             )}
@@ -114,14 +117,14 @@ export default function ResetPassword() {
                 onClick={() => window.location.reload}
                 className="w-full bg-red-400 text-green-300 py-2 rounded-md font-bold hover:bg-green-300 hover:text-red-500"
               >
-                Request new OTP
+                Request OTP
               </button>
             ) : (
               <button
-                onClick={() => handleVerifyOtp}
+                onClick={handleVerifyOtp}
                 className="w-full bg-green-600 text-white py-2 rounded-md font-bold hover:bg-green-700"
               >
-                Verify OTP
+                Submit
               </button>
             )}
           </form>
@@ -129,7 +132,7 @@ export default function ResetPassword() {
 
         {step === 3 && (
           <form onSubmit={handleResetPassword} className="space-y-4">
-            <h1 className="text-xl font-bold text-green-700 mb-4 text-center">
+            <h1 className="text-lg font-bold mb-4 text-center">
               Reset Password
             </h1>
             <p className="text-gray-500 text-sm mb-6 text-center">

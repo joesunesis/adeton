@@ -16,7 +16,7 @@ export default function Signup() {
     if (fullName == '' && phone == '' && gender == '' && password == '')
       return alert('Incorrect Details!');
     await register(fullName, phone, gender, password);
-    error && alert('User registration failed!');
+    if (error) return alert('User registration failed!');
     router.push('/signin');
   };
 

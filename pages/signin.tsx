@@ -15,9 +15,10 @@ export default function Login() {
       return alert('phone and password is incorrect!');
     await authenticate(phone, password);
     error && alert('Could not sign in!')
-    token && router.push(redirect);
   };
-
+  
+  token && router.push(redirect);
+  
   return loading ? <Spinner /> :
     (
       <MaxWidthWrapper className='p-4 flex justify-center items-start sm:items-center'>
@@ -42,10 +43,8 @@ export default function Login() {
           </button>
           <p className="mt-4 flex flex-col">
             <span className="text-green-500 underline cursor-pointer" onClick={() => router.push('/reset-password')}>Forgot Password?</span>
-            <div>
               Don't have an account?{' '}
               <span className="text-green-500 underline cursor-pointer" onClick={() => router.push('/signup')}>Register!</span>
-            </div>
           </p>
         </form>
       </MaxWidthWrapper>
