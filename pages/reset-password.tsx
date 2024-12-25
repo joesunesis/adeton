@@ -1,3 +1,4 @@
+import { MaxWidthWrapper } from '@/app/components';
 import { useEffect, useState } from 'react';
 
 export default function ResetPassword() {
@@ -51,7 +52,7 @@ export default function ResetPassword() {
   }
 
   return (
-    <div className="flex flex-col justify-center items-center p-4">
+    <MaxWidthWrapper className='p-4 flex justify-center items-start sm:items-center'>
       <div className="bg-white rounded-lg shadow-md p-6 w-full max-w-md">
         {step === 1 && (
           <form onSubmit={handleRequestOtp} className="space-y-4">
@@ -156,6 +157,6 @@ export default function ResetPassword() {
           </form>
         )}
       </div>
-    </div>
+    </MaxWidthWrapper>
   );
 }
