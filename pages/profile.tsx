@@ -7,7 +7,7 @@ import { useRouter } from 'next/router';
 
 export default function Profile() {
   const { getData, error, loading } = UseFetch();
-  const { user, setRedirect } = useAuth();
+  const { user, token, setRedirect } = useAuth();
   const [storedUser, setUser] = useState<User | null>(null);
   const [updatedUser, setUpdatedUser] = useState<User | null>(null);
   const router = useRouter();
@@ -28,7 +28,10 @@ export default function Profile() {
     const response = await getData('/user/update', {
       method: 'POST',
       body: JSON.stringify(userDetails),
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `${token}`,
+      },
     });
 
     if (response) {

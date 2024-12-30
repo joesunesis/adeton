@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react'
 
 const address = () => {
-  const { user, setRedirect } = useAuth();
+  const { user, token, setRedirect } = useAuth();
   const { getData, error, loading } = UseFetch();
   const [userAdd, setUserAdd] = useState<{ region: string, city: string }>();
   const router = useRouter();
@@ -33,7 +33,10 @@ const address = () => {
     const res = await getData('/address', {
       method: 'POST',
       body: JSON.stringify({ userId: user?.userId, address }),
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+       },
     });
 
     if (error) {
