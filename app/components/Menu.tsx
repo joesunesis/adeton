@@ -34,7 +34,7 @@ const MenuSection = ({
   title: string;
   children: React.ReactNode;
 }) => (
-  <div className="mb-6">
+  <div className="mb-3">
     <h3 className="text-xl text-gray-700 font-semibold mb-2">{title}</h3>
     <div className="bg-white rounded-lg shadow-md">{children}</div>
   </div>

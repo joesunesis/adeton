@@ -7,21 +7,15 @@ import { useRouter } from 'next/router';
 
 export default function Profile() {
   const { getData, error, loading } = UseFetch();
-  const { user, setRedirect } = useAuth();
+  const { user } = useAuth();
   const [storedUser, setUser] = useState<User | null>(null);
   const [updatedUser, setUpdatedUser] = useState<User | null>(null);
   const router = useRouter();
 
   useEffect(() => {
+    !user && router.push('/signin')
     setUser(user || storedUser);
     setUpdatedUser(user || storedUser);
-  }, [user, storedUser]);
-
-  useEffect(() => {
-    if (!user) {
-      setRedirect(router.pathname);
-      router.push('/signin');
-    }
   }, [user]);
 
   const updateUserDetails = async (userDetails: Partial<User>) => {
