@@ -1,12 +1,15 @@
 import MaxWidthWrapper from './MaxWidthWrapper';
 import { useAuth } from '../core/AuthContext';
 import { useRouter } from 'next/router';
+import { useCart } from '../core/CartContext';
 
 const Header = () => {
-  const { user, setRedirect } = useAuth();
+  const { user } = useAuth();
+  const { cart } = useCart();
   const router = useRouter();
 
-  function getInitials(userName: string) { return userName.split(' ').map(name => name[0].toUpperCase()).join(''); }
+  const getInitials = (userName: string) => { return userName.split(' ').map(name => name[0].toUpperCase()).join(''); }
+  const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
 
   return (
     <header className="shadow-xl px-4 pt-2">
@@ -37,7 +40,14 @@ const Header = () => {
                     )}
                   </div>
                 )}
-                <span onClick={() => router.push('/cart')}> 🛒 </span>
+                <span onClick={() => router.push('/cart')}> 
+                  🛒 
+                  {cartCount > 0 && (
+                    <span className="ml-1 bg-red-500 text-white rounded-full text-xs px-2 py-1">
+                      {cartCount}
+                    </span>
+                  )}
+                  </span>
               </div>
             </div>
           </div>

@@ -1,28 +1,18 @@
+import { useCart } from '@/app/core/CartContext';
 import UseFetch from '@/app/core/Fetch';
 import { Item } from '@/app/types/item';
 import { LucideMessageSquareText } from 'lucide-react';
 import { useRouter } from 'next/router';
-import { it } from 'node:test';
-import { useState, useEffect } from 'react';
 
 export default function ProductDetail() {
   const router = useRouter();
   const { id, name, brand, condition, model, stock, image, price } = router.query;
-  const { getData, error } = UseFetch();
-  const [item, fetchItems] = useState<Item>();
+  const { error } = UseFetch();
+  const { dispatch } = useCart();
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const data = await getData(`items/${id}`);
-  //       fetchItems(data);
-  //     } catch (err) {
-  //       console.error("Error fetching all items: ", err);
-  //     }
-  //   }
-
-  //   fetchData();
-  // }, [getData]);
+  const handleAddToCart = (item: Item) => {
+    dispatch({ type: 'ADD_ITEM', payload: { ...item, quantity: 1 , id: item.itemId} });
+  };
 
   return (
     <div className="flex flex-col">
@@ -55,7 +45,10 @@ export default function ProductDetail() {
               <LucideMessageSquareText />
               <span>Message</span>
             </button>
-            <button className="bg-green-900 text-white px-4 py-2 rounded-lg shadow-md">
+            <button
+            onClick={() => handleAddToCart(item)}
+             className="bg-green-900 text-white px-4 py-2 rounded-lg shadow-md"
+             >
               Add to Cart
             </button>
           </div>
