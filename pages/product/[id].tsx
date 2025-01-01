@@ -1,17 +1,27 @@
+import { useAuth } from '@/app/core/AuthContext';
 import { useCart } from '@/app/core/CartContext';
 import UseFetch from '@/app/core/Fetch';
-import { Item } from '@/app/types/item';
 import { LucideMessageSquareText } from 'lucide-react';
 import { useRouter } from 'next/router';
 
 export default function ProductDetail() {
   const router = useRouter();
-  const { id, name, brand, condition, model, stock, image, price, cat_name, cat_id } = router.query;
   const { error } = UseFetch();
-  const { dispatch } = useCart();
+  const { addToCart } = useCart();
+  const { user } = useAuth();
 
-  const handleAddToCart = (item: Item) => {
-    dispatch({ type: 'ADD_ITEM', payload: { ...item, quantity: 1 , id: item.itemId} });
+  const { id, name, brand, condition, model, stock, image, price, cat_name, cat_id } = router.query;
+  
+  const handleAddToCart = () => {
+    if (!user) {return router.push('/signin');}
+    const item = { 
+      id: id as string, 
+      name: name as string, 
+      price: price as unknown as number, 
+      quantity: stock as unknown as number, 
+      image: image as string
+     };
+    addToCart(item);
   };
 
   return (
@@ -21,8 +31,8 @@ export default function ProductDetail() {
         :
         <div className="text-center space-y-6">
           <img
-            src={image as string}
-            alt={name as string}
+            src={String(image)}
+            alt={String(name)}
             className="w-full h-64 object-cover rounded-lg"
           />
           <p className="text-md text-gray-500" onClick={() => router.push(`/category/${cat_id}`)}>{cat_name}</p>
@@ -35,8 +45,8 @@ export default function ProductDetail() {
 
           <div className='flex justify-between'>
               <span>Condition: {condition}</span>
-            {(stock as unknown as number > 0) ? 
-              <p className='font-semibold text-xl'>¢ {price}.00</p>
+            {(Number(stock) > 0) ? 
+              <p className='font-semibold text-xl'>¢{Number(price).toFixed(2)}</p>
             :
             <p className="text-red-600 line-through">Out of Stock</p>
           }
@@ -48,8 +58,8 @@ export default function ProductDetail() {
               <span>Message</span>
             </button>
             <button
-            onClick={() => handleAddToCart(item)}
-             className="bg-green-900 text-white px-4 py-2 rounded-lg shadow-md"
+            onClick={handleAddToCart}
+             className="bg-green-500 text-white px-4 py-2 rounded-lg shadow-md"
              >
               Add to Cart
             </button>

@@ -1,45 +1,52 @@
-import React, { createContext, useReducer, useContext } from 'react';
+import React, { createContext, useContext, useState, ReactNode } from 'react';
+import UseFetch from './Fetch';
+import { useAuth } from './AuthContext';
+import { useLocalStorage } from './useLocalStorage';
 
-type CartItem = {
+interface CartItem {
   id: string;
   name: string;
   price: number;
   quantity: number;
-};
+  image: string;
+}
 
-type CartState = CartItem[];
-type CartAction = { type: 'ADD_ITEM'; payload: CartItem } | { type: 'REMOVE_ITEM'; payload: string } | { type: 'CLEAR_CART' };
+interface CartContextProps {
+  cart: CartItem[];
+  addToCart: (item: CartItem) => void;
+  removeFromCart: (id: string) => void;
+  clearCart: () => void;
+  order: (item: CartItem) => void;
+}
 
-const cartReducer = (state: CartState, action: CartAction): CartState => {
-  switch (action.type) {
-    case 'ADD_ITEM':
-      const existingItem = state.find(item => item.id === action.payload.id);
-      if (existingItem) {
-        return state.map(item =>
-          item.id === action.payload.id
-            ? { ...item, quantity: item.quantity + action.payload.quantity }
-            : item
-        );
-      }
-      return [...state, action.payload];
-    case 'REMOVE_ITEM':
-      return state.filter(item => item.id !== action.payload);
-    case 'CLEAR_CART':
-      return [];
-    default:
-      throw new Error(`Unknown action: ${action.type}`);
+const CartContext = createContext<CartContextProps | undefined>(undefined);
+
+export const CartProvider = ({ children }: { children: ReactNode }) => {
+  const { getData, error } = UseFetch();
+  const { user } = useAuth();
+  const [cart, setCart, clearCart] = useLocalStorage<CartItem[]>('cartItems', []);
+
+  const addToCart = (item: CartItem) => {
+    cart.some(cartItem => cartItem.id === item.id)
+    ? cart
+    : setCart([...cart, item])
+  };
+
+  const removeFromCart = (id: string) => {
+    setCart(cart.filter(item => item.id !== id));
+  };
+
+  const order = async (item: CartItem) => {
+    await getData('placed-orders', {
+      method: 'POST',
+      body: JSON.stringify({ userId: user?.userId, qty: item.quantity, itemId: item.id }),
+      headers: { 'Content-Type': 'application/json' }
+    })
+    error && console.error(`Failed to place order: ${item.name}`);
   }
-};
 
-const CartContext = createContext<{
-  cart: CartState;
-  dispatch: React.Dispatch<CartAction>;
-} | null>(null);
-
-export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [cart, dispatch] = useReducer(cartReducer, []);
   return (
-    <CartContext.Provider value={{ cart, dispatch }}>
+    <CartContext.Provider value={{ cart, addToCart, removeFromCart, clearCart, order }}>
       {children}
     </CartContext.Provider>
   );

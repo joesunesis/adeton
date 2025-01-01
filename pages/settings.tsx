@@ -1,16 +1,20 @@
 import { MenuItem, MenuSection, SettingsIcon, CartIcon, LogoutIcon2, PrivacyIcon, TermsIcon, UserProfileIcon, AddressIcon } from '@/app/components';
 import { useAuth } from '@/app/core/AuthContext';
+import { useCart } from '@/app/core/CartContext';
 import { useRouter } from 'next/router';
 import React from 'react';
 
 export default function Settings() {
   const { user, setRedirect } = useAuth();
+  const { cart } = useCart();
   const router = useRouter();
 
   const handleClick = React.useCallback((path: string) => {
     setRedirect(path);
     return router.push(path);
   }, [router]);
+
+  const cartCount = user ? cart.length : '';
 
   return (
     <div className="p-4">
@@ -37,7 +41,7 @@ export default function Settings() {
       </MenuSection>
 
       <MenuSection title="Shop">
-        <MenuItem title="Cart" icon={CartIcon} onclick={() => handleClick('/cart')} />
+        <MenuItem title="Cart" icon={CartIcon} onclick={() => handleClick('/cart')} badge={String(cartCount)} />
         {/* <MenuItem title="Recently Viewed" icon={RecentlyViewedIcon} onclick={() => handleClick('/search')} /> */}
       </MenuSection>
 
