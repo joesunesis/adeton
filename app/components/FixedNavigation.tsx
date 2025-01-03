@@ -20,15 +20,15 @@ export default function FixedNavigation() {
           <HomeIcon />
           <span className="text-md">Home</span>
         </div>
-        <div onClick={() => handleClick('category')} className="text-gray-600 hover:text-green-500 flex flex-col items-center">
+        <div onClick={() => handleClick('/category')} className="text-gray-600 hover:text-green-500 flex flex-col items-center">
           <CategoriesIcon />
           <span className="text-md">Categories</span>
         </div>
-        <div onClick={() => handleClick('order')} className="text-gray-600 hover:text-green-500 flex flex-col items-center">
+        <div onClick={() => handleClick('/order')} className="text-gray-600 hover:text-green-500 flex flex-col items-center">
           <ShoppingBagIcon />
           <span className="text-md">Orders</span>
         </div>
-        <div onClick={() => handleClick('settings')} className="text-gray-600 hover:text-green-500 flex flex-col items-center">
+        <div onClick={() => handleClick('/settings')} className="text-gray-600 hover:text-green-500 flex flex-col items-center">
           <UserProfileIcon />
           <span className="text-md">Account</span>
         </div>

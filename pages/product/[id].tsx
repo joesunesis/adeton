@@ -1,61 +1,66 @@
+import { useAuth } from '@/app/core/AuthContext';
+import { useCart } from '@/app/core/CartContext';
 import UseFetch from '@/app/core/Fetch';
-import { Item } from '@/app/types/item';
 import { LucideMessageSquareText } from 'lucide-react';
 import { useRouter } from 'next/router';
-import { it } from 'node:test';
-import { useState, useEffect } from 'react';
 
 export default function ProductDetail() {
   const router = useRouter();
-  const { id, name, brand, condition, model, stock, image, price } = router.query;
-  const { getData, error } = UseFetch();
-  const [item, fetchItems] = useState<Item>();
+  const { error } = UseFetch();
+  const { addToCart } = useCart();
+  const { user } = useAuth();
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const data = await getData(`items/${id}`);
-  //       fetchItems(data);
-  //     } catch (err) {
-  //       console.error("Error fetching all items: ", err);
-  //     }
-  //   }
-
-  //   fetchData();
-  // }, [getData]);
+  const { id, name, brand, condition, model, stock, image, price, cat_name, cat_id } = router.query;
+  
+  const handleAddToCart = () => {
+    if (!user) {return router.push('/signin');}
+    const item = { 
+      id: id as string, 
+      name: name as string, 
+      price: price as unknown as number, 
+      quantity: stock as unknown as number, 
+      image: image as string
+     };
+    addToCart(item);
+  };
 
   return (
-    <div className="flex flex-col">
-      <button onClick={() => router.back()} className="mb-4 text-blue-500">
-        ← Back
-      </button>
+    <div className="flex flex-col p-8">
       {error ?
         <h1>Item: {id} not available</h1>
         :
-        <div className="text-center">
+        <div className="text-center space-y-6">
           <img
-            src={image}
-            alt="Product Image"
-            className="w-full h-64 object-cover rounded-lg mb-4"
+            src={String(image)}
+            alt={String(name)}
+            className="w-full h-64 object-cover rounded-lg"
           />
-          <h1 className="text-2xl font-bold">Product {name}</h1>
-          <p className="text-gray-500">${price}</p>
-          <p className="my-4 text-gray-700">
-            Detailed description of Product {condition}. Lorem ipsum dolor sit amet,
-            consectetur adipiscing elit.
-          </p>
+          <p className="text-md text-gray-500" onClick={() => router.push(`/category/${cat_id}`)}>{cat_name}</p>
+          <h2 className="text-2xl font-bold">Product {name}</h2>
 
-          <div className="flex justify-center space-x-4 mt-4">
-            <button className="px-4 py-2 bg-gray-200 rounded-lg">Size: {model}</button>
-            <button className="px-4 py-2 bg-gray-200 rounded-lg">Color: Blue</button>
+          <div className="flex items-center justify-between my-4">
+              <span>Brand: {brand}</span>
+              <span>Model: {model}</span>
           </div>
 
-          <div className="flex items-center justify-between">
-            <button className="flex items-center text-green-500 space-x-2">
-              <LucideMessageSquareText />
+          <div className='flex justify-between'>
+              <span>Condition: {condition}</span>
+            {(Number(stock) > 0) ? 
+              <p className='font-semibold text-xl'>¢{Number(price).toFixed(2)}</p>
+            :
+            <p className="text-red-600 line-through">Out of Stock</p>
+          }
+          </div>
+
+          <div className="flex items-center justify-between mt-5">
+            <button className="flex items-center space-x-2">
+              <LucideMessageSquareText className='text-green-500' />
               <span>Message</span>
             </button>
-            <button className="bg-green-900 text-white px-4 py-2 rounded-lg shadow-md">
+            <button
+            onClick={handleAddToCart}
+             className="bg-green-500 text-white px-4 py-2 rounded-lg shadow-md"
+             >
               Add to Cart
             </button>
           </div>

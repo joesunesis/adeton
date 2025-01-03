@@ -44,6 +44,7 @@ const UserProfileIcon = () => <span>👤</span>;
 const CategoriesIcon = () => <span>🗂️</span>;
 const OrdersIcon = () => <span>📦</span>;
 const ShoppingBagIcon = () => <span>🛍️</span>;
+const MessageIcon = () => <span>💬</span>;
 
 export { Icons, 
   SettingsIcon, 
@@ -70,5 +71,6 @@ export { Icons,
   UserProfileIcon,
   CategoriesIcon,
   OrdersIcon,
-  ShoppingBagIcon
+  ShoppingBagIcon,
+  MessageIcon
 };
