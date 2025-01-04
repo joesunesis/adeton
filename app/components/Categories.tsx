@@ -27,7 +27,7 @@ export default function Categories() {
     <div className="flex overflow-x-auto space-x-4">
       {categories?.map((category) => (
         <div
-          onClick={() => router.push(`/category/${category.categoryId}`)}
+          onClick={() => router.push(`/category/${category.name}`)}
           key={category?.categoryId}
           className="px-4 rounded-lg text-center border cursor-pointer hover:bg-gray-100"
         >
