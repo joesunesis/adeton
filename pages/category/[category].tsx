@@ -26,12 +26,10 @@ export default function Category() {
   });
 
   return (
-    <div className="p-4">
-      <div className="mt-4 grid grid-cols-2 gap-4">
+      <div className="mt-4 grid grid-cols-1 md:grid-cols-2 tm:grid-cols-3 gap-4">
         {filteredItems?.map((item) => (
           <ItemCard item={item} key={item.itemId} />
         ))}
       </div>
-    </div>
   );
 }
