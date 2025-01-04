@@ -10,9 +10,14 @@ export default function Categories() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await getData("categories");
-      setCategories(data);
-      error && console.error("Error fetching categories: ", error);
+      try {
+        const data = await getData("categories");
+        if (data) {
+          setCategories(data.slice(0, 4));
+        }
+      } catch (err) {
+        console.error("Error fetching categories: ", err);
+      }
     };
 
     fetchData();
@@ -21,8 +26,12 @@ export default function Categories() {
   return (
     <div className="flex overflow-x-auto space-x-4">
       {categories?.map((category) => (
-        <div onClick={() => router.push(`/category/${category.categoryId}`)} key={category?.categoryId} className="px-4 rounded-lg text-center border ">
-          <span className="text-sm">{category.name}</span>
+        <div
+          onClick={() => router.push(`/category/${category.categoryId}`)}
+          key={category?.categoryId}
+          className="px-4 rounded-lg text-center border cursor-pointer hover:bg-gray-100"
+        >
+          <span className="text-sm font-medium">{category.name}</span>
         </div>
       ))}
     </div>
