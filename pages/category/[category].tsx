@@ -23,7 +23,7 @@ export default function Category() {
   }, [getData]);
 
   const filteredItems = items?.filter((item) => {
-    return item.category?.categoryId === category;
+    return item.category === category;
   });
 
   return (
