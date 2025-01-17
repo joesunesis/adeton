@@ -23,7 +23,7 @@ const ItemCard: React.FC<ItemCardProps> = ({ item }) => {
       </div>
       <div className="flex items-center justify-between pb-2 px-2">
         <p className="text-green-600 font-bold text-sm">¢{price.toFixed(2)}</p>
-        <button className="p-1 text-white bg-green-900" onClick={() => router.push({ pathname: `/product/${itemId}`, query: { id: itemId, name, brand, condition, model, stock, image, price, cat_name: category?.name, cat_id: category?.categoryId }})}>
+        <button className="p-1 text-white bg-green-900" onClick={() => router.push({ pathname: `/product/${itemId}`, query: { id: itemId, name, brand, condition, model, stock, image, price, category }})}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
