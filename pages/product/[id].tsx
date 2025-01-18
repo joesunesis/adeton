@@ -61,7 +61,7 @@ export default function ProductDetail() {
             </button>
             <button
               onClick={handleAddToCart}
-              className="bg-green-500 text-white px-4 py-2 rounded-lg shadow-md"
+              className={`bg-green-500 text-white px-4 py-2 rounded-lg shadow-md ${(Number(stock) == 0) && 'hidden'}`}
             >
               Add to Cart
             </button>

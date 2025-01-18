@@ -26,7 +26,7 @@ export default function Categories() {
       <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">Explore Categories</h2>
 
       {categories ? (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {categories.map((category) => (
             <div
               key={category.categoryId}
