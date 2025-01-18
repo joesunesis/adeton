@@ -3,7 +3,7 @@ import UseFetch from './Fetch';
 import { useAuth } from './AuthContext';
 import { useLocalStorage } from './useLocalStorage';
 
-interface CartItem {
+interface OrderItem {
   id: string;
   name: string;
   price: number;
@@ -11,22 +11,22 @@ interface CartItem {
   image: string;
 }
 
-interface CartContextProps {
-  cart: CartItem[];
-  addToCart: (item: CartItem) => void;
+interface OrderContextProps {
+  cart: OrderItem[];
+  addToCart: (item: OrderItem) => void;
   removeFromCart: (id: string) => void;
   clearCart: () => void;
-  order: (item: CartItem) => void;
+  order: (item: OrderItem) => void;
 }
 
-const CartContext = createContext<CartContextProps | undefined>(undefined);
+const OrderContext = createContext<OrderContextProps | undefined>(undefined);
 
 export const CartProvider = ({ children }: { children: ReactNode }) => {
   const { getData, error } = UseFetch();
   const { user } = useAuth();
-  const [cart, setCart, clearCart] = useLocalStorage<CartItem[]>('cartItems', []);
+  const [cart, setCart, clearCart] = useLocalStorage<OrderItem[]>('cartItems', []);
 
-  const addToCart = (item: CartItem) => {
+  const addToCart = (item: OrderItem) => {
     cart.some(cartItem => cartItem.id === item.id)
     ? cart
     : setCart([...cart, item])
@@ -36,26 +36,28 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     setCart(cart.filter(item => item.id !== id));
   };
 
-  const order = async (item: CartItem) => {
-    await getData('placed-orders', {
+  const order = async (item: OrderItem) => {
+    await getData('placed-orders', 
+      {
       method: 'POST',
       body: JSON.stringify({ userId: user?.userId, qty: item.quantity, itemId: item.id }),
       headers: { 'Content-Type': 'application/json' }
-    })
+    }
+  )
     error && console.error(`Failed to place order: ${item.name}`);
   }
 
   return (
-    <CartContext.Provider value={{ cart, addToCart, removeFromCart, clearCart, order }}>
+    <OrderContext.Provider value={{ cart, addToCart, removeFromCart, clearCart, order }}>
       {children}
-    </CartContext.Provider>
+    </OrderContext.Provider>
   );
 };
 
-export const useCart = () => {
-  const context = useContext(CartContext);
+export const useOrder = () => {
+  const context = useContext(OrderContext);
   if (!context) {
-    throw new Error('useCart must be used within a CartProvider');
+    throw new Error('useOrder must be used within a OrderProvider');
   }
   return context;
 };

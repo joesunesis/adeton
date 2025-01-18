@@ -1,5 +1,5 @@
 import { useAuth } from '@/app/core/AuthContext';
-import { useCart } from '@/app/core/CartContext';
+import { useOrder } from '@/app/core/OrderContext';
 import UseFetch from '@/app/core/Fetch';
 import { LucideMessageSquareText } from 'lucide-react';
 import { useRouter } from 'next/router';
@@ -8,7 +8,7 @@ import { Breadcrumb } from '@/app/components';
 export default function ProductDetail() {
   const router = useRouter();
   const { error } = UseFetch();
-  const { addToCart } = useCart();
+  const { addToCart } = useOrder();
   const { user } = useAuth();
 
   const { id, name, brand, condition, model, stock, image, price, category } = router.query;

@@ -1,6 +1,6 @@
 import { MenuItem, MenuSection, SettingsIcon, CartIcon, LogoutIcon2, PrivacyIcon, TermsIcon, UserProfileIcon, AddressIcon } from '@/app/components';
 import { useAuth } from '@/app/core/AuthContext';
-import { useCart } from '@/app/core/CartContext';
+import { useCart } from '@/app/core/OrderContext';
 import { useRouter } from 'next/router';
 import React from 'react';
 

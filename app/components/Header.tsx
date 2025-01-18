@@ -1,16 +1,16 @@
 import { useAuth } from '../core/AuthContext';
 import { useRouter } from 'next/router';
-import { useCart } from '../core/CartContext';
+import { useOrder } from '../core/OrderContext';
 
 const Header = () => {
   const { user } = useAuth();
-  const { cart } = useCart();
+  const { cart } = useOrder();
   const router = useRouter();
 
   const getInitials = (userName: string) => { return userName.split(' ').map(name => name[0].toUpperCase()).join(''); }
 
   return (
-    <header className="shadow-xl px-4 pt-2">
+    <header className="shadow-xl px-4 p-2">
       <nav className="stcky w-full backdrop-blur-lg transition-all">
         <>
           <div className="flex items-center justify-between">
@@ -31,7 +31,7 @@ const Header = () => {
                       />
                     ) : (
                       <div className="p-1 overflow-hidden bg-gray-300 rounded-full dark:bg-gray-600">
-                        <span className="font-medium text-gray-600">
+                        <span className={`font-medium text-gray-600 px-${getInitials(user.name).length === 2 ? '1' : '2'}`}>
                           {getInitials(user?.name)}
                         </span>
                       </div>
@@ -39,9 +39,9 @@ const Header = () => {
                   </div>
                 )}
                 <span onClick={() => router.push('/cart')}>
-                  <i className="relative">🛒</i>
+                  <i>🛒</i>
                   {(user && cart.length > 0) && (
-                    <span className="relative -top-2 right-0 bg-red-500 text-white text-xs font-semibold px-2 py-1 rounded-full">
+                    <span className="relative -top-2 -right-1 bg-red-500 text-white text-xs font-semibold px-2 py-1 rounded-full">
                       {cart.length}
                     </span>
                   )}

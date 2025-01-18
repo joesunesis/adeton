@@ -3,7 +3,7 @@ import { useCallback, useState } from "react";
 interface UseFetch {
   loading: boolean;
   error: any;
-  getData: (url: string, options?: object) => Promise<any | null>; 
+  getData: (url: string, options?: object) => Promise<any | null>;
 }
 
 export default function UseFetch(): UseFetch {
@@ -13,17 +13,18 @@ export default function UseFetch(): UseFetch {
   const getData = useCallback(async (url: string, options?: object) => {
     const uri = `http://localhost:5001/api/${url}`;
     setLoading(true);
-    
+    setError(null);
+
     try {
       const res = await fetch(uri, options);
       if (!res.ok) 
         throw new Error(`Request failed with status ${res.status}. Message: ${await res.text()}`);
       const result = await res.json();
-      return await result;
+      return result;
     } catch (err) {
       console.error('Fetch Error: ', err);
-      setError(err); 
-      return null; 
+      setError(err);
+      return null;
     } finally {
       setLoading(false);
     }

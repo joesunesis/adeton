@@ -3,7 +3,7 @@ import dynamic from 'next/dynamic';
 import type { AppProps } from 'next/app';
 import { FixedNavigation, MaxWidthWrapper } from '../app/components/index';
 import AuthProvider from '@/app/core/AuthContext';
-import { CartProvider } from '@/app/core/CartContext';
+import { CartProvider } from '@/app/core/OrderContext';
 
 const DynamicHeader = dynamic(() => import('@/app/components/Header'), { ssr: false });
 
