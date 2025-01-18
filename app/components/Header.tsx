@@ -18,17 +18,17 @@ const Header = () => {
             <div className='text-2xl font-semibold cursor-pointer' onClick={() => router.push('/')}>
               Yeton
             </div>
-            <div className="flex mb-1 cursor-pointer space-x-4">
+            <div className="flex items-center mb-1 cursor-pointer space-x-4">
               <span className="text-2xls" onClick={() => router.push('/search')}>🔍</span>
-              <div className='space-x-4'>
+              <div className='flex items-center space-x-4'>
                 {user && (
-                  <div className="relative inline-block text-left" onClick={() => router.push('/settings')}>
+                  <div className="" onClick={() => router.push('/settings')}>
                     {user?.imageUrl ? (
                       <img
                         id="avatarButton"
                         className="w-10 h-10 rounded-full"
                         src={user.imageUrl}
-                        alt="User dropdown"
+                        alt={getInitials(user?.name)}
                       />
                     ) : (
                       <div className="p-1 overflow-hidden bg-gray-300 rounded-full dark:bg-gray-600">
