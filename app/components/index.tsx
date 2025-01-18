@@ -32,6 +32,7 @@ import Address from './Address'
 import UserDetails from "./UserDetails";
 import Spinner from "./Spinner";
 import { MenuItem, MenuSection } from "./Menu";
+import Breadcrumb from "./Breadcrumbs";
 
 export {
   FixedNavigation,
@@ -67,5 +68,6 @@ export {
   CategoriesIcon,
   OrdersIcon,
   ShoppingBagIcon,
-  MessageIcon
+  MessageIcon,
+  Breadcrumb
 };
