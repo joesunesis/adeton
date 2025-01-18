@@ -25,7 +25,8 @@ import { Icons,
   UserProfileIcon,
   CategoriesIcon,
   OrdersIcon,
-  ShoppingBagIcon
+  ShoppingBagIcon,
+  MessageIcon
 } from "./Icons";
 import Address from './Address'
 import UserDetails from "./UserDetails";
@@ -65,5 +66,6 @@ export {
   UserProfileIcon,
   CategoriesIcon,
   OrdersIcon,
-  ShoppingBagIcon
+  ShoppingBagIcon,
+  MessageIcon
 };

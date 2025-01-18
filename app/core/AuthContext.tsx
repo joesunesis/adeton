@@ -7,7 +7,7 @@ interface AuthContextProps {
   user: User | null;
   token: string | null;
   authenticate: (phone: string, password: string) => Promise<void>;
-  register: (name: string, email: string, phone: string, gender: string, password: string, imageUrl?: string) => Promise<void>;
+  register: (name: string, phone: string, gender: string, password: string, imageUrl?: string) => Promise<void>;
   logout: () => Promise<void>;
   loading: boolean;
   error: any;
@@ -24,8 +24,7 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
   const [redirect, setRedirect, removeRedirect] = useLocalStorage<string>('redirect', '/');
 
   const authenticate = async (phone: string, password: string) => {
-    try {
-      const fetchData = await getData('login', {
+    const fetchData = await getData('login', {
         method: 'POST',
         body: JSON.stringify({ phone, password }),
         headers: { 'Content-Type': 'application/json' }
@@ -36,21 +35,15 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
       } else {
         throw new Error("Authentication failed");
       }
-    } catch (err) {
-      console.error("Login failed:", err);
-    }
-    console.log(redirect);
-
   };
-
-  const register = async (name: string, email: string, phone: string, gender: string, password: string, imageUrl?: string) => {
+  
+  const register = async (name: string, phone: string, gender: string, password: string, imageUrl?: string) => {
     try {
-      const fetchData = await getData('register', {
+      await getData('register', {
         method: 'POST',
-        body: JSON.stringify({ name, email, phone, imageUrl, password, gender }),
+        body: JSON.stringify({ name, phone, imageUrl, password, gender }),
         headers: { 'Content-Type': 'application/json' }
       });
-      fetchData && setRedirect('/signin');
       if (error) throw new Error(`Registration failed: ${error}`);
     } catch (err) {
       console.error("Registration failed:", err);
@@ -59,15 +52,15 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
 
   const logout = async () => {
     try {
-      const fetchData = await getData('users/logout', {
+      await getData('users/logout', {
         method: 'POST',
-        body: JSON.stringify({ phone: user?.phone }), // Use user phone
+        body: JSON.stringify({ phone: user?.phone }),
         headers: { 'Content-Type': 'application/json' }
       });
       removeUser();
       removeRedirect();
       removeToken();
-      if (!fetchData) throw new Error("Logout failed");
+      if (error) throw new Error("Logout failed");
     } catch (err) {
       console.error("Logout failed:", err);
     }

@@ -1,9 +1,7 @@
-import { Category } from "./category"
-
 export type Item = { 
   itemId: string, 
   name: string, 
-  category: Category, 
+  category: string, 
   brand: string, 
   condition: string, 
   model: string, 

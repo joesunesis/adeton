@@ -1,20 +1,25 @@
-import { MenuItem, MenuSection, SettingsIcon, OrderIcon, NotificationIcon, CartIcon, RecentlyViewedIcon, LogoutIcon2, HelpIcon, PrivacyIcon, TermsIcon, ReportIcon, UserProfileIcon, AddAccountIcon } from '@/app/components';
+import { MenuItem, MenuSection, SettingsIcon, CartIcon, LogoutIcon2, PrivacyIcon, TermsIcon, UserProfileIcon, AddressIcon } from '@/app/components';
 import { useAuth } from '@/app/core/AuthContext';
+import { useCart } from '@/app/core/CartContext';
 import { useRouter } from 'next/router';
 import React from 'react';
 
 export default function Settings() {
-  const { user } = useAuth();
+  const { user, setRedirect } = useAuth();
+  const { cart } = useCart();
   const router = useRouter();
 
   const handleClick = React.useCallback((path: string) => {
+    setRedirect(path);
     return router.push(path);
   }, [router]);
+
+  const cartCount = user ? cart.length : '';
 
   return (
     <div className="p-4">
       {!user &&
-        <div className="bg-white rounded-lg p-4 shadow-md mb-6">
+        <div className="bg-white rounded-lg p-3 shadow-md mb-3">
           <h2 className="font-bold text-lg">Unlock everything there is to offer</h2>
           <p className="text-gray-600 text-sm mt-2">
             Sign in to place and track your orders, access Customer Support, and many more.
@@ -31,12 +36,12 @@ export default function Settings() {
       <MenuSection title="Account">
         <MenuItem title="Profile" icon={UserProfileIcon} onclick={() => handleClick('/profile')} />
         <MenuItem title="Security" icon={SettingsIcon} onclick={() => handleClick('/reset-password')} />
-        <MenuItem title="Address" icon={AddAccountIcon} onclick={() => handleClick('/address')} />
+        <MenuItem title="Address" icon={AddressIcon} onclick={() => handleClick('/address')} />
         {/* <MenuItem title="Notifications" icon={NotificationIcon} /> */}
       </MenuSection>
 
       <MenuSection title="Shop">
-        <MenuItem title="Cart" icon={CartIcon} onclick={() => handleClick('/cart')} />
+        <MenuItem title="Cart" icon={CartIcon} onclick={() => handleClick('/cart')} badge={String(cartCount)} />
         {/* <MenuItem title="Recently Viewed" icon={RecentlyViewedIcon} onclick={() => handleClick('/search')} /> */}
       </MenuSection>
 

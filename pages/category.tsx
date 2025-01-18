@@ -1,39 +1,54 @@
-import { MaxWidthWrapper } from '@/app/components';
-import Link from 'next/link';
+import UseFetch from '@/app/core/Fetch';
+import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
-
-interface Category {
-  id: number;
-  name: string;
-}
+import { Category } from "@/app/types/category";
 
 export default function Categories() {
-  const [categories, setCategories] = useState<Category[]>([]);
+  const { getData, error } = UseFetch();
+  const [categories, setCategories] = useState<Category[] | null>(null);
+  const router = useRouter();
 
   useEffect(() => {
-    setCategories([
-      { id: 1, name: 'Electronics' },
-      { id: 2, name: 'Clothing' },
-      { id: 3, name: 'Home Appliances' },
-    ]);
-  }, []);
+    const fetchData = async () => {
+      try {
+        const data = await getData("categories");
+        setCategories(data);
+      } catch (err) {
+        console.error("Error fetching categories:", error || err);
+      }
+    };
+
+    fetchData();
+  }, [getData, error]);
 
   return (
-    <MaxWidthWrapper className='p-4'>
-      <h2 className="text-lg font-bold mb-4">Categories</h2>
-      <ul>
-        {categories.map((category) => (
-          <li key={category.id} className="mb-4">
-            <div className="p-4 bg-white shadow rounded-lg">
-              <h3 className="text-lg">
-                <Link href={`/category/${category.name.toLowerCase()}`}>
-                  {category.name}
-                </Link>
-              </h3>
+    <>
+      <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">Explore Categories</h2>
+
+      {categories ? (
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {categories.map((category) => (
+            <div
+              key={category.categoryId}
+              className="bg-white rounded-lg shadow-md hover:shadow-lg transform transition-transform hover:scale-105 overflow-hidden"
+            >
+              <img
+                src={category.imageUrl}
+                alt={category.name}
+                className="w-full h-60 object-cover"
+              />
+              <div
+                onClick={() => router.push(`/category/${category.categoryId}`)}
+                className="p-4 text-center cursor-pointer hover:bg-green-100"
+              >
+                <p className="text-lg font-medium text-gray-700">{category.name}</p>
+              </div>
             </div>
-          </li>
-        ))}
-      </ul>
-    </MaxWidthWrapper>
+          ))}
+        </div>
+      ) : (
+        <p className="text-center text-gray-500">Loading categories...</p>
+      )}
+    </>
   );
-};
+}
