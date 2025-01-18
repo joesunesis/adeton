@@ -1,4 +1,3 @@
-import MaxWidthWrapper from './MaxWidthWrapper';
 import { useAuth } from '../core/AuthContext';
 import { useRouter } from 'next/router';
 import { useCart } from '../core/CartContext';
@@ -13,7 +12,7 @@ const Header = () => {
   return (
     <header className="shadow-xl px-4 pt-2">
       <nav className="stcky w-full backdrop-blur-lg transition-all">
-        <MaxWidthWrapper>
+        <>
           <div className="flex items-center justify-between">
             <div className='text-2xl font-semibold cursor-pointer' onClick={() => router.push('/')}>
               Yeton
@@ -50,7 +49,7 @@ const Header = () => {
               </div>
             </div>
           </div>
-        </MaxWidthWrapper>
+        </>
       </nav>
     </header>
   );

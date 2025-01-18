@@ -14,7 +14,7 @@ export default function FixedNavigation() {
   }, [router]);
 
   return (
-    <nav className="fixed bottom-5 left-1/2 transform -translate-x-1/2 bg-white/90 shadow-lg border border-gray-300 w-full max-w-xs tm:max-w-sm lg:max-w-md rounded-2xl">
+    <nav className="fixed bottom-5 left-1/2 transform -translate-x-1/2 bg-white/90 shadow-lg border border-gray-300 rounded-2xl w-full max-w-sm md:max-w-lg lg:max-w-screen-sm">
       <div className="flex justify-around items-center py-[2px] cursor-pointer">
         <div onClick={() => handleClick('/')} className="text-gray-600 hover:text-green-500 flex flex-col items-center">
           <HomeIcon />

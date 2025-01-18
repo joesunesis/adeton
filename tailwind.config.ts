@@ -55,14 +55,7 @@ const config: Config = {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
-  		},
-			maxWidth: {
-				xs: '320px',
-				sm: '375px',
-				md: '425px',
-				tm: '768px',
-				lg: '1024px'
-			}
+  		}
   	}
   },
   plugins: [require("tailwindcss-animate")],

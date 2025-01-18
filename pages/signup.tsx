@@ -1,7 +1,7 @@
 import { useAuth } from '@/app/core/AuthContext';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import { MaxWidthWrapper, Spinner } from '@/app/components';
+import { Spinner } from '@/app/components';
 
 export default function Signup() {
   const { register, loading, error } = useAuth();
@@ -22,7 +22,7 @@ export default function Signup() {
 
   return loading ? <Spinner /> :
     (
-      <MaxWidthWrapper className='p-4 flex justify-center items-start sm:items-center'>
+      <div className='p-4 flex justify-center items-start sm:items-center'>
         <form onSubmit={handleSubmit} className="w-80 p-6 rounded-lg shadow-lg bg-gray-50">
           <h1 className="text-lg font-bold mb-6 text-center">Create an account</h1>
           <input
@@ -89,6 +89,6 @@ export default function Signup() {
             <span className="text-green-500 underline cursor-pointer" onClick={() => router.push('/signin')}>Sign up</span>
           </p>
         </form>
-      </MaxWidthWrapper>
+      </div>
     );
 };

@@ -11,15 +11,12 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <AuthProvider>
       <CartProvider>
-        <MaxWidthWrapper className="flex flex-col items-center">
-          {/* Force mobile width */}
-          <MaxWidthWrapper className="max-w-md lg:max-w-tm">
+        <MaxWidthWrapper>
             <DynamicHeader />
             <main className="p-8">
               <Component {...pageProps} />
             </main>
             <FixedNavigation />
-          </MaxWidthWrapper>
 
         </MaxWidthWrapper>
       </CartProvider>

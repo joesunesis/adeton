@@ -1,4 +1,3 @@
-import { MaxWidthWrapper } from "@/app/components";
 import Categories from "@/app/components/Categories";
 import ProductList from "./products";
 

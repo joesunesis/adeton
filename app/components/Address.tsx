@@ -1,7 +1,5 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { ghanaRegions } from './RegionsDeata';
-import UseFetch from '../core/Fetch';
-import MaxWidthWrapper from './MaxWidthWrapper';
 
 interface AddressProps {
   userAdd: { region: string, city: string } | null | undefined;
@@ -27,7 +25,7 @@ const Address = ({ userAdd, updateAddress }: AddressProps) => {
   // const currentCity = currentRegion?.cities.find(city => city.name === address?.city);
 
   return (
-    <MaxWidthWrapper className='p-8'>
+    <>
         <h3 className="text-lg font-semibold mb-4">Address</h3>
         <div className="space-y-4">
           {isEditingAddress && (
@@ -110,7 +108,7 @@ const Address = ({ userAdd, updateAddress }: AddressProps) => {
             {isEditingAddress ? 'Save' : 'Edit'} Address
           </button>
         </div>
-    </MaxWidthWrapper>
+    </>
   );
 };
 
