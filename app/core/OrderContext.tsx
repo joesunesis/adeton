@@ -1,6 +1,6 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
-import UseFetch from './Fetch';
+import { createContext, ReactNode, useContext } from 'react';
 import { useAuth } from './AuthContext';
+import UseFetch from './Fetch';
 import { useLocalStorage } from './useLocalStorage';
 
 interface OrderItem {
@@ -27,9 +27,8 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [cart, setCart, clearCart] = useLocalStorage<OrderItem[]>('cartItems', []);
 
   const addToCart = (item: OrderItem) => {
-    cart.some(cartItem => cartItem.id === item.id)
-    ? cart
-    : setCart([...cart, item])
+    if (cart.some(cartItem => cartItem.id === item.id)) {return cart;} 
+    setCart([...cart, item]);
   };
 
   const removeFromCart = (id: string) => {
@@ -42,9 +41,9 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       method: 'POST',
       body: JSON.stringify({ userId: user?.userId, qty: item.quantity, itemId: item.id }),
       headers: { 'Content-Type': 'application/json' }
-    }
-  )
-    error && console.error(`Failed to place order: ${item.name}`);
+      }
+    )
+    if (error) console.error(`Failed to place order: ${item.name}`);
   }
 
   return (
@@ -56,8 +55,6 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
 
 export const useOrder = () => {
   const context = useContext(OrderContext);
-  if (!context) {
-    throw new Error('useOrder must be used within a OrderProvider');
-  }
+  if (!context) throw new Error('useOrder must be used within a OrderProvider');
   return context;
 };

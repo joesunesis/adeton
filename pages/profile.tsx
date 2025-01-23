@@ -13,10 +13,10 @@ export default function Profile() {
   const router = useRouter();
 
   useEffect(() => {
-    !user && router.push('/signin')
+    if (!user) router.push('/signin')
     setUser(user || storedUser);
     setUpdatedUser(user || storedUser);
-  }, [user]);
+  }, [user, router, storedUser]);
 
   const updateUserDetails = async (userDetails: Partial<User>) => {
     const response = await getData('/user/update', {

@@ -1,6 +1,7 @@
 import { useAuth } from '../core/AuthContext';
 import { useRouter } from 'next/router';
 import { useOrder } from '../core/OrderContext';
+import Image from 'next/image';
 
 const Header = () => {
   const { user } = useAuth();
@@ -23,7 +24,7 @@ const Header = () => {
                 {user && (
                   <div className="" onClick={() => router.push('/settings')}>
                     {user?.imageUrl ? (
-                      <img
+                      <Image
                         id="avatarButton"
                         className="w-10 h-10 rounded-full"
                         src={user.imageUrl}

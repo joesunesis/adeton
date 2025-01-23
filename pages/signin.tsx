@@ -14,10 +14,10 @@ export default function Login() {
     if (phone == '' && password == '')
       return alert('phone and password is incorrect!');
     await authenticate(phone, password);
-    error && alert('Could not sign in!')
+    if (error) alert('Could not sign in!')
   };
   
-  token && router.push(redirect);
+  if (token) router.push(redirect);
   
   return loading ? <Spinner /> :
     (
@@ -43,8 +43,8 @@ export default function Login() {
           </button>
           <p className="mt-4 flex flex-col">
             <span className="text-green-500 underline cursor-pointer" onClick={() => router.push('/reset-password')}>Forgot Password?</span>
-              Don't have an account?{' '}
-              <span className="text-green-500 underline cursor-pointer" onClick={() => router.push('/signup')}>Register!</span>
+              No account yet?{' '}
+              <span className="text-green-500 underline cursor-pointer" onClick={() => router.push('/signup')}>Register Here!</span>
           </p>
         </form>
       </div>

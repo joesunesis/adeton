@@ -1,5 +1,6 @@
 import { useAuth } from '@/app/core/AuthContext';
 import { useOrder } from '@/app/core/OrderContext';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
@@ -16,8 +17,8 @@ export default function Cart() {
   );
 
   useEffect(() => {
-    !user && router.push('/signin');
-  }, [user]);
+    if (!user) router.push('/signin');
+  }, [user, router]);
 
   const handleQuantityChange = (id: string, newQuantity: number) => {
     setQuantities((prev) => ({
@@ -56,7 +57,7 @@ export default function Cart() {
                 key={item.id}
                 className="flex items-center justify-between bg-white rounded-lg shadow-md p-4 mb-4"
               >
-                <img
+                <Image
                   src={item.image}
                   alt={item.name}
                   className="w-16 h-16 object-cover rounded-md"

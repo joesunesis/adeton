@@ -28,7 +28,7 @@ import { Icons,
   ShoppingBagIcon,
   MessageIcon
 } from "./Icons";
-import Address from './Address'
+import AddressComponent from './Address'
 import UserDetails from "./UserDetails";
 import Spinner from "./Spinner";
 import { MenuItem, MenuSection } from "./Menu";
@@ -38,7 +38,7 @@ export {
   FixedNavigation,
   MaxWidthWrapper,
   Icons,
-  Address,
+  AddressComponent,
   UserDetails,
   Spinner,
   MenuItem,

@@ -10,18 +10,12 @@ export default function Categories() {
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        const data = await getData("categories");
-        if (data) {
-          setCategories(data.slice(0, 4));
-        }
-      } catch (err) {
-        console.error("Error fetching categories: ", err);
-      }
+      const data = await getData("categories");
+      if(!error) setCategories(data.slice(0, 4));
     };
 
     fetchData();
-  }, [getData]);
+  }, [getData, error]);
 
   return (
     <div className="flex overflow-x-auto space-x-4">

@@ -1,25 +1,24 @@
-import { useRouter } from 'next/router';
-import UseFetch from '@/app/core/Fetch';
-import { useState, useEffect } from 'react';
-import { Item } from '@/app/types/item';
 import ItemCard from '@/app/components/ItemCard';
+import UseFetch from '@/app/core/Fetch';
+import { Item } from '@/app/types/item';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 
 export default function Category() {
   const { getData, error } = UseFetch();
-  const [items, fetchItems] = useState<Item[] | null>(null);
+  const [items, fetchItems] = useState<Item[] | null >(null);
   const router = useRouter();
   const { category } = router.query;
 
   useEffect(() => {
     const fetchData = async () => {
       const data = await getData(`items`);
-      error ?
-        console.error("Error fetching all items: ", error) :
-        fetchItems(data);
+      if (error) console.error("Error fetching all items: ", error)
+      else fetchItems(data);
     }
 
     fetchData();
-  }, [getData]);
+  }, [getData, error]);
 
   const filteredItems = items?.filter((item) => {
     return item.category === category;

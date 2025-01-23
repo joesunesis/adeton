@@ -2,6 +2,7 @@ import UseFetch from '@/app/core/Fetch';
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 import { Category } from "@/app/types/category";
+import Image from 'next/image';
 
 export default function Categories() {
   const { getData, error } = UseFetch();
@@ -32,7 +33,7 @@ export default function Categories() {
               key={category.categoryId}
               className="bg-white rounded-lg shadow-md hover:shadow-lg transform transition-transform hover:scale-105 overflow-hidden"
             >
-              <img
+              <Image
                 src={category.imageUrl}
                 alt={category.name}
                 className="w-full h-60 object-cover"

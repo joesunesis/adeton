@@ -3,7 +3,7 @@ import UseFetch from "@/app/core/Fetch";
 import { Item } from "@/app/types/item";
 import { useState, useEffect } from "react";
 
-export default function itemList() {
+export default function ItemList() {
   const { getData, error } = UseFetch();
   const [items, fetchItems] = useState<Item[] | null>(null);
 
@@ -11,11 +11,11 @@ export default function itemList() {
     const fetchData = async () => {
       const data = await getData('items');
       fetchItems(data);
-      error && console.error("Error fetching all items: ", error);
+      if (error) console.error("Error fetching all items: ", error);
       }
 
     fetchData();
-  }, [getData]);
+  }, [getData, error]);
 
   return (
     <div className="mt-4 grid grid-cols-2 gap-4">

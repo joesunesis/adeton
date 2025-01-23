@@ -3,15 +3,15 @@ import { ghanaRegions } from './RegionsDeata';
 
 interface AddressProps {
   userAdd: { region: string, city: string } | null | undefined;
-  updateAddress: (address: {}) => Promise<void>;
+  updateAddress: (address: object) => Promise<void>;
 }
 
-const Address = ({ userAdd, updateAddress }: AddressProps) => {
+const AddressComponent = ({ updateAddress }: AddressProps) => {
   const [address, setAddress] = useState({ region: '', city: '', district: '' });
   const [isEditingAddress, setEditingAddress] = useState(false);
 
   const handleAddress = () => {
-    const { region, city, district } = address;
+    const { region, city } = address;
     setEditingAddress(!isEditingAddress);
 
     if (region == '' || city == '') {
@@ -26,7 +26,7 @@ const Address = ({ userAdd, updateAddress }: AddressProps) => {
 
   return (
     <>
-        <h3 className="text-lg font-semibold mb-4">Address</h3>
+      <h3 className="text-lg font-semibold mb-4">Component</h3>
         <div className="space-y-4">
           {isEditingAddress && (
             <div>
@@ -112,4 +112,4 @@ const Address = ({ userAdd, updateAddress }: AddressProps) => {
   );
 };
 
-export default Address;
+export default AddressComponent;

@@ -2,13 +2,13 @@ import { useCallback, useState } from "react";
 
 interface UseFetch {
   loading: boolean;
-  error: any;
+  error: object | null | unknown;
   getData: (url: string, options?: object) => Promise<any | null>;
 }
 
 export default function UseFetch(): UseFetch {
   const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<any>(null);
+  const [error, setError] = useState<object | null | unknown>(null);
 
   const getData = useCallback(async (url: string, options?: object) => {
     const uri = `http://localhost:5001/api/${url}`;

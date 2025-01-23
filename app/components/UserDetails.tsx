@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { User } from '../types/user';
+import Image from 'next/image';
 
 interface UserDetailsProps {
   user: User | null;
@@ -26,7 +27,7 @@ const UserDetails = ({ user, updateUserDetails }: UserDetailsProps) => {
       {isEditingDetails ? (
         <div className="p-6 rounded-lg shadow-md">
             <div className="flex justify-center mb-4">
-              <img src="/images/profile-picture.jpg" alt="Profile" className="w-24 h-24 rounded-full border-4 border-blue-500" />
+              <Image src="/images/profile-picture.jpg" alt="Profile" className="w-24 h-24 rounded-full border-4 border-blue-500" />
             </div>
             <div className="space-y-4">
               <input

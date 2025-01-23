@@ -19,6 +19,8 @@ export default function Orders() {
     }
   }, [user, router]);
 
+  const toaster = setTimeout(() => (<>Your Order has been placed. You will be contacted soon</>), 1000);
+  
   useEffect(() => {
     const getOrder = async () => {
       const res = await getData(`users/${user?.phone}/orders`);
@@ -26,14 +28,14 @@ export default function Orders() {
     };
     const getFulfilledOrders = async () => {
       const res = await getData(`admin/orders/fulfilled`);
-
+      
       if (!error) setFulfilled(res?.filter((item: { user: string | undefined; }) => item.user === user?.phone));
       console.log(fulfilled);
       
     };
     getOrder();
     getFulfilledOrders();
-  }, [getData, user?.phone, error]);
+  }, [getData, user?.phone, error, fulfilled, toaster]);
 
   const handleViewOrder = (order: Order) => {
     setSelectedOrder(order);
@@ -62,9 +64,6 @@ export default function Orders() {
       </li>
     ))
   );
-
-  const toaster = setTimeout(() => (<>Your Order has been placed. You will be contacted soon</>), 1000);
-  
 
   return (
     <div>

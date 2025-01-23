@@ -4,6 +4,7 @@ import UseFetch from '@/app/core/Fetch';
 import { LucideMessageSquareText } from 'lucide-react';
 import { useRouter } from 'next/router';
 import { Breadcrumb } from '@/app/components';
+import Image from 'next/image';
 
 export default function ProductDetail() {
   const router = useRouter();
@@ -32,7 +33,7 @@ export default function ProductDetail() {
         <h1>Item: {id} not available</h1>
         :
         <div className="text-center space-y-6">
-          <img
+          <Image
             src={String(image)}
             alt={String(name)}
             className="w-full h-64 object-cover rounded-lg"

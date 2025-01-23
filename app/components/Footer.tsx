@@ -1,5 +1,5 @@
 import React from 'react';
-import { Instagram, Facebook, Twitter, MessageCircle, Menu, CircleDot, User } from 'lucide-react';
+import { Instagram, Facebook, Twitter, MessageCircle } from 'lucide-react';
 
 const Footer = () => {
   return (

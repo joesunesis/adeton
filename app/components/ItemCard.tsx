@@ -1,4 +1,5 @@
 import { Item } from "@/app/types/item";
+import Image from "next/image";
 import { useRouter } from "next/router";
 
 interface ItemCardProps {
@@ -11,7 +12,7 @@ const ItemCard: React.FC<ItemCardProps> = ({ item }) => {
 
   return (
     <div className="bg-[#EBE9E2] shadow-md rounded-sm overflow-hidden">
-      <img
+      <Image
         src={image}
         alt={name}
         width={200}

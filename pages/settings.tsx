@@ -1,18 +1,18 @@
 import { MenuItem, MenuSection, SettingsIcon, CartIcon, LogoutIcon2, PrivacyIcon, TermsIcon, UserProfileIcon, AddressIcon } from '@/app/components';
 import { useAuth } from '@/app/core/AuthContext';
-import { useCart } from '@/app/core/OrderContext';
+import { useOrder } from '@/app/core/OrderContext';
 import { useRouter } from 'next/router';
 import React from 'react';
 
 export default function Settings() {
   const { user, setRedirect } = useAuth();
-  const { cart } = useCart();
+  const { cart } = useOrder();
   const router = useRouter();
 
   const handleClick = React.useCallback((path: string) => {
     setRedirect(path);
     return router.push(path);
-  }, [router]);
+  }, [router, setRedirect]);
 
   const cartCount = user ? cart.length : '';
 
@@ -28,7 +28,7 @@ export default function Settings() {
             Log in
           </button>
           <p className="text-center text-sm mt-2">
-            Don't have an account yet? {" "}
+            No account yet? {" "}
             <span className="text-green-500 font-semibold cursor-pointer" onClick={() => router.push('/signup')}>Register </span> to get started!
           </p>
         </div>}

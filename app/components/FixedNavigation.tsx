@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import { CategoriesIcon, HomeIcon, ShoppingBagIcon, UserProfileIcon } from './Icons';
 import { useRouter } from 'next/router';
 import React from 'react';
@@ -11,7 +10,7 @@ export default function FixedNavigation() {
   const handleClick = React.useCallback((path: string) => {
     setRedirect(path);
     return router.push(path);
-  }, [router]);
+  }, [router, setRedirect]);
 
   return (
     <nav className="fixed bottom-5 left-1/2 transform -translate-x-1/2 bg-white/90 shadow-lg border border-gray-300 rounded-2xl w-full max-w-sm md:max-w-lg lg:max-w-screen-sm">

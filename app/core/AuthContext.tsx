@@ -10,7 +10,7 @@ interface AuthContextProps {
   register: (name: string, phone: string, gender: string, password: string, imageUrl?: string) => Promise<void>;
   logout: () => Promise<void>;
   loading: boolean;
-  error: any;
+  error: object | null | unknown;
   redirect: string;
   setRedirect: (path: string) => void;
 }

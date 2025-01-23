@@ -17,7 +17,7 @@ export default function SearchPage() {
     };
 
     fetchData();
-  }, [getData]);
+  }, [getData, error]);
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
