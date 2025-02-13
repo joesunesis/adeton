@@ -1,5 +1,5 @@
-import Categories from "@/app/components/Categories";
-import ProductList from "./products";
+import { Categories } from "@/app/components";
+import { Products } from "@/app/components";
 
 export default function Home() {
   return (
@@ -11,7 +11,7 @@ export default function Home() {
 
       <section>
         <h2 className="text-lg font-semibold mb-2">Featured Products</h2>
-        <ProductList />
+        <Products />
       </section>
     </>
   );

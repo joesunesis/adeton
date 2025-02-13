@@ -1,9 +1,11 @@
 export type User = {
-  userId: string,
-  name: string,
-  phone: string,
-  gender: string,
-  imageUrl?: string
-  isAdmin?: boolean,
-  isOnline?: boolean
+  id: string;
+  phone: string;
+  name: string;
+  gender: string;
+  image_url?: string;
+  is_admin?: boolean;
+  is_online?: boolean;
+  created_at?: string;
+  updated_at?: string;
 }

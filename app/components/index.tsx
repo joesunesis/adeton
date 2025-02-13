@@ -33,6 +33,8 @@ import UserDetails from "./UserDetails";
 import Spinner from "./Spinner";
 import { MenuItem, MenuSection } from "./Menu";
 import Breadcrumb from "./Breadcrumbs";
+import Categories from "./Categories";
+import Products from "./Products";
 
 export {
   FixedNavigation,
@@ -69,5 +71,7 @@ export {
   OrdersIcon,
   ShoppingBagIcon,
   MessageIcon,
-  Breadcrumb
+  Breadcrumb,
+  Categories,
+  Products
 };

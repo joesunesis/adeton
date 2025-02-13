@@ -6,7 +6,7 @@ import React, { useEffect, useState } from 'react'
 
 const Address = () => {
   const { user } = useAuth();
-  const { getData, error, loading } = UseFetch();
+  const { getData, insertData, error, loading } = UseFetch();
   const [userAdd, setUserAdd] = useState<{ region: string, city: string }>();
   const router = useRouter();
   
@@ -24,9 +24,9 @@ const Address = () => {
   }, [user, error, router, getData]);
 
   const updateAddress = async (address: object) => {
-    const res = await getData('/address', {
+    const res = await insertData('/address', {
       method: 'POST',
-      body: JSON.stringify({ userId: user?.userId, address }),
+      body: JSON.stringify({ userId: user?.id, address }),
       headers: { 'Content-Type': 'application/json' },
     });
 
