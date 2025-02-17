@@ -23,11 +23,12 @@ const Header = () => {
               <div className='flex items-center space-x-4'>
                 {user && (
                   <div className="" onClick={() => router.push('/settings')}>
-                    {user?.imageUrl ? (
+                    {user?.image_url ? (
                       <Image
                         id="avatarButton"
                         className="w-10 h-10 rounded-full"
-                        src={user.imageUrl}
+                        src={user.image_url}
+
                         alt={getInitials(user?.name)}
                       />
                     ) : (

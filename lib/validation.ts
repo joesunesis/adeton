@@ -1,4 +1,4 @@
-import { parsePhoneNumber, isValidPhoneNumber } from 'libphonenumber-js';
+import { parsePhoneNumberWithError, isValidPhoneNumber } from 'libphonenumber-js';
 
 export interface ValidationError {
   field: string;
@@ -18,6 +18,7 @@ export const validatePhone = (phone: string): ValidationError | null => {
 
     return null;
   } catch (error) {
+    console.error('Error validating phone number:', error);
     return { field: 'phone', message: 'Invalid phone number' };
   }
 };
@@ -26,9 +27,10 @@ export const formatPhone = (phone: string): string => {
   try {
     // Add '+' if not present
     const phoneWithPlus = phone.startsWith('+') ? phone : `+${phone}`;
-    const parsed = parsePhoneNumber(phoneWithPlus);
-    return parsed.format('E.164'); // Returns number in format +1234567890
+    const parsed = parsePhoneNumberWithError(phoneWithPlus);
+    return parsed.format('E.164');
   } catch (error) {
+    console.error('Error validating phone number:', error);
     return phone;
   }
 };

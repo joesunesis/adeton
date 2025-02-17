@@ -5,13 +5,6 @@ import { Spinner } from '@/app/components';
 import { validatePhone, validatePassword, formatPhone, ValidationError } from '../lib/validation';
 import Link from 'next/link';
 
-interface FormErrors {
-  name?: string;
-  phone?: string;
-  gender?: string;
-  password?: string;
-}
-
 export default function Signup() {
   const { register, loading, error } = useAuth();
   const [name, setName] = useState('');
@@ -25,20 +18,15 @@ export default function Signup() {
     const errors: ValidationError[] = [];
 
     // Validate name
-    if (!name.trim()) {
-      errors.push({ field: 'name', message: 'Name is required' });
-    } else if (name.length < 2) {
-      errors.push({ field: 'name', message: 'Name must be at least 2 characters long' });
-    }
+    if (!name.trim()) errors.push({ field: 'name', message: 'Name is required' });
+    else if (name.length < 2) errors.push({ field: 'name', message: 'Name must be at least 2 characters long' });
 
     // Validate phone
     const phoneError = validatePhone(phone);
     if (phoneError) errors.push(phoneError);
 
     // Validate gender
-    if (!gender) {
-      errors.push({ field: 'gender', message: 'Please select a gender' });
-    }
+    if (!gender) errors.push({ field: 'gender', message: 'Please select a gender' });
 
     // Validate password
     const passwordError = validatePassword(password);

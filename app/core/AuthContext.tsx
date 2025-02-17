@@ -2,7 +2,7 @@ import { createContext, useContext, ReactNode, useEffect } from 'react';
 import { useLocalStorage } from './useLocalStorage';
 import { User } from '../types/user';
 import { supabase } from '../../lib/supabase';
-import { AuthError, User as SupabaseUser } from '@supabase/supabase-js';
+import { AuthError } from '@supabase/supabase-js';
 
 interface AuthContextProps {
   user: User | null;
@@ -48,7 +48,7 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
     return () => {
       subscription.unsubscribe();
     };
-  }, []);
+  }, [removeUser, setUser]);
 
   const authenticate = async (phone: string, password: string) => {
     try {
