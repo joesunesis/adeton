@@ -29,7 +29,7 @@ import { Icons,
   MessageIcon
 } from "./Icons";
 import AddressComponent from './Address'
-import UserDetails from "./UserDetails";
+import UserDetails from "./UserProfile";
 import Spinner from "./Spinner";
 import { MenuItem, MenuSection } from "./Menu";
 import Breadcrumb from "./Breadcrumbs";
