@@ -1,29 +1,8 @@
-import { useState, useEffect } from "react";
-import UseFetch from "../core/Fetch";
 import { Category } from "../types/category";
 import { useRouter } from "next/router";
-import Spinner from "./Spinner";
 
-export default function Categories() {
-  const { getData, error, loading } = UseFetch();
-  const [categories, setCategories] = useState<Category[] | null>(null);
+export default function Categories({ categories }: { categories: Category[] | null }) {
   const router = useRouter();
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await getData("categories", {
-        select: 'categoryId, name',
-        limit: 5,
-        order: { column: 'created_at', ascending: false }});
-      if(!error) setCategories(data);
-    };
-
-    fetchData();
-  }, [getData, error]);
-console.log(categories);
-
-  if (loading) return <Spinner />;
-
   return (
     <div className="flex overflow-x-auto space-x-4">
       {categories?.map((category) => (

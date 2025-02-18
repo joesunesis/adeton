@@ -29,7 +29,7 @@ import { Icons,
   MessageIcon
 } from "./Icons";
 import AddressComponent from './Address'
-import UserDetails from "./UserProfile";
+import UserProfile from "./UserProfile";
 import Spinner from "./Spinner";
 import { MenuItem, MenuSection } from "./Menu";
 import Breadcrumb from "./Breadcrumbs";
@@ -41,7 +41,7 @@ export {
   MaxWidthWrapper,
   Icons,
   AddressComponent,
-  UserDetails,
+  UserProfile,
   Spinner,
   MenuItem,
   MenuSection,

@@ -1,12 +1,12 @@
 import { User } from '@/app/types/user';
 import { useAuth } from '@/app/core/AuthContext';
 import { useEffect, useState } from 'react';
-import { UserDetails, Spinner } from '@/app/components';
+import { UserProfile, Spinner } from '@/app/components';
 import UseFetch from '@/app/core/Fetch';
 import { useRouter } from 'next/router';
 
 export default function Profile() {
-  const { getData, error, loading } = UseFetch();
+  const { updateData, error, loading } = UseFetch();
   const { user } = useAuth();
   const [storedUser, setUser] = useState<User | null>(null);
   const [updatedUser, setUpdatedUser] = useState<User | null>(null);
@@ -18,12 +18,8 @@ export default function Profile() {
     setUpdatedUser(user || storedUser);
   }, [user, router, storedUser]);
 
-  const updateUserDetails = async (userDetails: Partial<User>) => {
-    const response = await getData('/user/update', {
-      method: 'POST',
-      body: JSON.stringify(userDetails),
-      headers: { 'Content-Type': 'application/json' },
-    });
+  const updateUserProfile = async (userProfile: Partial<User>) => {
+    const response = await updateData('user', userProfile, {userId: user?.id});
 
     if (response) {
       setUser(response);
@@ -31,10 +27,10 @@ export default function Profile() {
     }
 
     if (error) {
-      alert("Could not update user details");
-      console.error("Could not update user details");
+      alert("Could not update user userProfile");
+      console.error("Could not update user userProfile");
     }
   };
 
-  return loading ? <Spinner /> : <UserDetails user={updatedUser} updateUserDetails={updateUserDetails} />
+  return loading ? <Spinner /> : <UserProfile user={updatedUser} updateUserProfile={updateUserProfile} />
 }
